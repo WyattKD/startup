@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-A brief description of the application here. 
+A brief description of the application here. -
 
 
 > [!NOTE]
