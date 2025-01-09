@@ -15,3 +15,12 @@
 ## HTML Notes
 
 
+## Basic GIT Commands
+```ruby
+git status #Shows changes
+git add #Stages a file
+git commit #Commits staged changes
+git diff #Shows differences between commits
+git push; git pull #Pushes/pulls to/from github
+```
+
