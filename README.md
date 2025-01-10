@@ -18,10 +18,10 @@ A multiplayer experience based on the classic game "hangman," where one player p
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
@@ -32,13 +32,19 @@ Have you ever wanted to play a game of hangman with a friend but found yourself 
 
 ![Design image](placeholder.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Here is a sequence diagram that shows how the players would interact with the backend during the game.
 
 ```mermaid
 sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
+    actor Guesser
+    actor Word-giver
+    Word-giver->>Server: Word: "Tree"
+    Server -->>Guesser: Word: ----
+    Guesser->>Server: Guess: "t"
+    Server -->>Word-giver: Word: t---
+    Server -->>Guesser: Word: t---
+    Server -->>Guesser: Guesser's Score: +50
+    Server -->>Word-giver: Guesser's Score +50
 ```
 
 ### Key features
@@ -55,11 +61,11 @@ sequenceDiagram
 I am going to use the required technologies in the following ways.
 
 - **HTML** - HTML will be used to structure both the login page and the game page.
-- **CSS** - CSS will be used to style both pages, focusing on intuitive design over stylish grapics. The game itself will have very simple animations and transitions.
-- **React** - Buttons and their associated logic for logging in. Textfields and their associated logic for providing a word and giving guesses. Handles updating what the viewer sees as the game progresses and more guesses are made.
+- **CSS** - CSS will be used to style both pages, focusing on intuitive design over stylish graphics. The game itself will have very simple animations and transitions.
+- **React** - Buttons and their associated logic for logging in. Text fields and their associated logic for providing a word and giving guesses. Handles updating what the viewer sees as the game progresses and more guesses are made.
 - **Service** - Authentication and authorization, a dictionary to check words, retrieving and submitting guesses.
-- **DB/Login** - Usernames and passwords will be stored. Along with highscores associated with those users.
-- **WebSocket** - When two users join a game both are notified. As one player guesses the other player sees the guesses as well. Scores are updated for both players.
+- **DB/Login** - Usernames and passwords will be stored. Along with high scores associated with those users.
+- **WebSocket** - When two users join a game, both are notified. As one player guesses, the other player sees the guesses as well. Scores are updated for both players.
 
 ## 🚀 AWS deliverable
 
