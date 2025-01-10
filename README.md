@@ -22,7 +22,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
 - [x] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -30,7 +30,8 @@ Have you ever wanted to play a game of hangman with a friend but found yourself 
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](https://github.com/user-attachments/assets/9cdc17e7-f0de-43a4-8e66-97b9529f4893)
+
 
 Here is a sequence diagram that shows how the players would interact with the backend during the game.
 
