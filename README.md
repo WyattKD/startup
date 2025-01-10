@@ -43,20 +43,23 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- The user can securely login
+- The user can join a game with another user 
+- The user can modify the game settings
+- The user can play as either the guesser or the word-giver
+- The user's points and name are displayed
+- All the functionality of the hangman game
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - HTML will be used to structure both the login page and the game page.
+- **CSS** - CSS will be used to style both pages, focusing on intuitive design over stylish grapics. The game itself will have very simple animations and transitions.
+- **React** - Buttons and their associated logic for logging in. Textfields and their associated logic for providing a word and giving guesses. Handles updating what the viewer sees as the game progresses and more guesses are made.
+- **Service** - Authentication and authorization, a dictionary to check words, retrieving and submitting guesses.
+- **DB/Login** - Usernames and passwords will be stored. Along with highscores associated with those users.
+- **WebSocket** - When two users join a game both are notified. As one player guesses the other player sees the guesses as well. Scores are updated for both players.
 
 ## 🚀 AWS deliverable
 
