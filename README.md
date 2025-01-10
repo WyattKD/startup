@@ -1,8 +1,8 @@
-# Your startup name here
+# Hangman
 
 [My Notes](notes.md)
 
-A brief description of the application here. -
+A multiplayer experience based on the classic game "hangman," where one player provides the word to be guessed and the other player guesses. Players are awarded points for their performance and must log in so that their points are saved.
 
 
 > [!NOTE]
@@ -26,7 +26,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Have you ever wanted to play a game of hangman with a friend but found yourself lacking a piece of paper or a whiteboard on which to play? Has your game of hangman ever been interrupted, leaving you with a perpetual sense of dissatisfaction  at a game never completed? If either of these situations describes you, or if you just really like playing hangman, then we have the perfect website for you. My hangman website allows you to play the classic game in real-time with a friend! Unlike other hangman websites, where you play against a computer with a limited selection of words to guess, our website allows for infinite replayability, where you get both the satisfaction of giving great guesses as well as the jubilant glee of giving your friend a nearly impossible word to guess.  
 
 ### Design
 
