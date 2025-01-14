@@ -52,3 +52,25 @@ tracert #Trace the connections to a website
 dig #Show the DNS information for a domain
 man #Look up a command in the manual
 ```
+
+## Basic VIM Commands
+```ruby
+:h	#help
+i	#enter insert mode. This will allow you to type and delete text. Use ESC to exit insert mode. No other commands will work while in insert mode.
+u	#undo
+CTRL-r	#redo
+gg	#go to beginning of file
+G	#go to end of file
+'/'	#search for text that you type after /
+n	#next search match
+N	#previous search match
+v	#visually select text
+y	#yank or copy selected text to clipboard
+p	#paste clipboard
+CTRL-wv	#Split window vertically
+CTRL-ww	#Toggle windows
+CTRL-wq	#Close current window
+:e	#Open a file. Type ahead available. If you open a directory you can navigate it in the window
+:w	#write file (save)
+:q	#quit. Use :q! to exit without saving
+```
