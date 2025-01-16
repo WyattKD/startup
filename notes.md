@@ -77,3 +77,4 @@ CTRL-wq	#Close current window
 
 ## IP Address of PROJECTW
 54.163.204.219
+projectw.click
