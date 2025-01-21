@@ -19,6 +19,7 @@ projectw.click
 [HTML Structure](https://codepen.io/wd19/pen/PwYdvee)\
 [HTML Input](https://codepen.io/wd19/pen/JoPaqab?editors=1000)\
 [HTML Media](https://codepen.io/wd19/pen/qEWMGgm)
+[Good HTML Reference Guide](https://www.w3schools.com/tags/ref_byfunc.asp)
 
 
 ## Basic GIT Commands
