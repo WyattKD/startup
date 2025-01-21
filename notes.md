@@ -10,9 +10,15 @@
 
 ## AWS Notes
 
-
+### IP Address of PROJECTW
+54.163.204.219\
+projectw.click
 
 ## HTML Notes
+
+[HTML Structure](https://codepen.io/wd19/pen/PwYdvee)\
+[HTML Input](https://codepen.io/wd19/pen/JoPaqab?editors=1000)\
+[HTML Media](https://codepen.io/wd19/pen/qEWMGgm)
 
 
 ## Basic GIT Commands
@@ -75,11 +81,5 @@ CTRL-wq	#Close current window
 :q	#quit. Use :q! to exit without saving
 ```
 
-## IP Address of PROJECTW
-54.163.204.219\
-projectw.click
 
-## HTML
-[HTML Structure](https://codepen.io/wd19/pen/PwYdvee)\
-[HTML Input](https://codepen.io/wd19/pen/JoPaqab?editors=1000)\
-[HTML Media](https://codepen.io/wd19/pen/qEWMGgm)
+
