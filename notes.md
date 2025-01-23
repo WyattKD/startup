@@ -21,6 +21,9 @@ projectw.click
 [HTML Media](https://codepen.io/wd19/pen/qEWMGgm)
 [Good HTML Reference Guide](https://www.w3schools.com/tags/ref_byfunc.asp)
 
+## CSS Notes
+
+[CSS Example](https://codepen.io/wd19/pen/ByBqbQv)
 
 ## Basic GIT Commands
 ```ruby
