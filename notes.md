@@ -21,6 +21,8 @@ projectw.click
 [HTML Media](https://codepen.io/wd19/pen/qEWMGgm)
 [Good HTML Reference Guide](https://www.w3schools.com/tags/ref_byfunc.asp)
 
+So far I am planning on using 4 HTML pages. One for the login, one to view scores, one to modify game settings, and one for the hangman game. The scores and login pages will be view seperately by players. While the game settings and the game itself will be view by two players at a time. When the word-giver is inputting the word to guess the guesser shouldn't be able to see it.
+
 ## CSS Notes
 
 [CSS Example](https://codepen.io/wd19/pen/ByBqbQv)
