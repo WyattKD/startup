@@ -27,7 +27,7 @@ So far I am planning on using 4 HTML pages. One for the login, one to view score
 
 [CSS Example](https://codepen.io/wd19/pen/ByBqbQv)\
 [Practice](https://codepen.io/wd19/pen/zxOeqMe)\
-[Bootstrap Example](https://github.com/webprogramming260/.github/blob/main/profile/css/frameworks/frameworks.md)
+[Bootstrap Example](https://codepen.io/wd19/pen/wBwNGNq?editors=1100)
 
 ## Basic GIT Commands
 ```ruby
