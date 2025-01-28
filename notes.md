@@ -29,6 +29,14 @@ So far I am planning on using 4 HTML pages. One for the login, one to view score
 [Practice](https://codepen.io/wd19/pen/zxOeqMe)\
 [Bootstrap Example](https://codepen.io/wd19/pen/wBwNGNq?editors=1100)
 
+An element can be moved and rotated with `transform: translate(100px, -20px) rotate(-15deg);`.\
+You can edit placeholder settings with `input::placeholder`. Probably used for other things too.\
+Be careful about using % based sizes, they don't always work how you think.\
+`animation-timing-function: linear;` can be used to change how an animation works.\
+`animation-iteration-count: infinite;` for a repeating animation.\
+`!important` to override existing rules.\
+`element > *` targets all direct children of the element.
+
 ## Basic GIT Commands
 ```ruby
 git status #Shows changes
@@ -41,6 +49,7 @@ git push; git pull #Pushes/pulls to/from github
 ```ruby
 echo #Output the parameters of the command
 cd #Change directory
+cd .. #Back to parent directory
 mkdir #Make directory
 rmdir #Remove directory
 rm #Remove file(s)
