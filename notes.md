@@ -49,6 +49,7 @@ git push; git pull #Pushes/pulls to/from github
 ```ruby
 echo #Output the parameters of the command
 cd #Change directory
+cd .. #Back to parent directory
 mkdir #Make directory
 rmdir #Remove directory
 rm #Remove file(s)
