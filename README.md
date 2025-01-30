@@ -82,7 +82,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Proper HTML element usage** - Used various HTML elements properly.
 - [x] **Links** - All four pages can be navigated between from any one of them.
 - [x] **Text** - Text for scores, settings, logging in, the game, etc.
-- [ ] **3rd party API placeholder** - I believe any APIs I use are only going to be on the back-end.
+- [x] **3rd party API placeholder** - I did complete this part of the deliverable.
 - [x] **Images** - Added an image for the hanging man.
 - [x] **Login placeholder** - Login on the login page.
 - [x] **DB data placeholder** - Scores and login have a placeholder.
@@ -97,7 +97,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Responsive to window resizing** - Most of the pages look decent and work when resized or zoomed. Doesn't hold up at the extremes.
 - [x] **Application elements** - Elements are consitently styled and spaced.
 - [x] **Application text content** - Used multiple fonts, font sizes, animations, and colors.
-- [ ] **Application images** - The only image is a placeholder and remains the same.
+- [x] **Application images** - I did complete this part of the deliverable.
 
 ## 🚀 React part 1: Routing deliverable
 
