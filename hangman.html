@@ -23,25 +23,34 @@
     </header>
 
     <main>
-        <h1>Room Number: 45</h1>
-        <h3>Players:</h3>
-        <ul>
-            <li>(Guesser) Robert: 1500</li>
-            <li>(Word-giver) Dylan: 300</li>
-        </ul>
-        <h3>Incorrect Guesses:</h3>
-        <p>A, S, Q, L, R</p>
-        <img alt="Hangman" src="https://imgs.search.brave.com/7KcQL1-YjmKKgd7z5lPRBeaiPFe0ahAc1FBUxJlqr58/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAzLzE4LzA1LzU4/LzM2MF9GXzMxODA1/NTg5MV9hU09tWjJo/ZUtkN0VPQURWRUtO/clN2bEdCVDNvaWRP/OC5qcGc">
-        <ul>
-            <li>
-                <label>Word: </label>
-                <label>- - E E -</label>
-            </li>
-            <li>
-                <label>Guess:</label>
-                <input type="text" placeholder="Enter your guess!"></input>
-            </li>
-        </ul>
+      <div class="container text-center">
+        <div class="row">
+          <h1>Hangman</h1>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3 class="players-label">Players:</h3>
+            <ul>
+              <li>(Guesser) Robert: 1500</li>
+              <li>(Word-giver) Dylan: 300</li>
+            </ul>
+          </div>
+          <div class="col">
+            <img alt="Hangman" src="https://imgs.search.brave.com/7KcQL1-YjmKKgd7z5lPRBeaiPFe0ahAc1FBUxJlqr58/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAzLzE4LzA1LzU4/LzM2MF9GXzMxODA1/NTg5MV9hU09tWjJo/ZUtkN0VPQURWRUtO/clN2bEdCVDNvaWRP/OC5qcGc">
+          </div>
+          <div class="col">
+            <h3 class="incorrect-guess-label">Incorrect Guesses:</h3>
+            <p>A, S, Q, L, R</p>
+          </div>
+        </div>
+        <div class="row">
+          <label for="exampleFormControlInput1" class="word-label">_ E E _ _ </label>
+        </div>
+        <div class="row">
+          <label for="exampleFormControlInput1" class="guess-label">Guess: </label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your guess!">
+        </div>
+      </div>
     </main>
 
     <footer>

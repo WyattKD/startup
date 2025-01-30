@@ -4,8 +4,22 @@
     font-family: "Knewave", Arial, Helvetica, sans-serif;
     color: black;
 }
+html {
+    width: 90%;
+    
+}
 body {
     background-color: #fdf0d5;
+    padding-bottom: 90px;
+}
+main *{
+    z-index: 0;
+}
+main {
+    padding-left: 10%;
+}
+header, footer {
+    z-index: 1;
 }
 label {
     margin: auto !important;
@@ -108,5 +122,10 @@ footer > * {
 @media screen and (max-width: 340px) {
     input::placeholder {
         color:white !important;
+    }
+}
+@media screen and (max-width: 800px) {
+    header, footer {
+        display: none;
     }
 }

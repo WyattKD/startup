@@ -4,6 +4,7 @@
 }
 body {
     background-color: #fdf0d5;
+    padding-bottom: 90px;
 }
 header {
     background-color: #780000;
@@ -60,4 +61,15 @@ th {
 h1 {
     text-align: center;
     font-family: "Honk", Arial, Helvetica, sans-serif;
+}
+main *{
+    z-index: 0;
+}
+header, footer {
+    z-index: 1;
+}
+@media screen and (max-width: 1250px) {
+    header, footer {
+        display: none;
+    }
 }
