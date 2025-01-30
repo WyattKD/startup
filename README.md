@@ -78,26 +78,26 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **HTML pages** - I did complete this part of the deliverable.
-- [x] **Proper HTML element usage** - I did complete this part of the deliverable.
-- [x] **Links** - I did complete this part of the deliverable.
-- [x] **Text** - I did complete this part of the deliverable.
-- [x] **3rd party API placeholder** - I did complete this part of the deliverable.
-- [x] **Images** - I did complete this part of the deliverable.
-- [x] **Login placeholder** - I did complete this part of the deliverable.
-- [x] **DB data placeholder** - I did complete this part of the deliverable.
-- [x] **WebSocket placeholder** - I did complete this part of the deliverable.
+- [x] **HTML pages** - 4 HTML pages, 1 for each part of the game.
+- [x] **Proper HTML element usage** - Used various HTML elements properly.
+- [x] **Links** - All four pages can be navigated between from any one of them.
+- [x] **Text** - Text for scores, settings, logging in, the game, etc.
+- [ ] **3rd party API placeholder** - I believe any APIs I use are only going to be on the back-end.
+- [x] **Images** - Added an image for the hanging man.
+- [x] **Login placeholder** - Login on the login page.
+- [x] **DB data placeholder** - Scores and login have a placeholder.
+- [x] **WebSocket placeholder** - Connecting two users in a game has a placeholder.
 
 ## 🚀 CSS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **Header, footer, and main content body** - I did complete this part of the deliverable.
-- [x] **Navigation elements** - I did complete this part of the deliverable.
-- [x] **Responsive to window resizing** - I did complete this part of the deliverable.
-- [x] **Application elements** - I did complete this part of the deliverable.
-- [x] **Application text content** - I did complete this part of the deliverable.
-- [x] **Application images** - I did complete this part of the deliverable.
+- [x] **Header, footer, and main content body** - Consistent header and footer across the pages. Body is style in all the pages.
+- [x] **Navigation elements** - Navigation is styled.
+- [x] **Responsive to window resizing** - Most of the pages look decent and work when resized or zoomed. Doesn't hold up at the extremes.
+- [x] **Application elements** - Elements are consitently styled and spaced.
+- [x] **Application text content** - Used multiple fonts, font sizes, animations, and colors.
+- [ ] **Application images** - The only image is a placeholder and remains the same.
 
 ## 🚀 React part 1: Routing deliverable
 
