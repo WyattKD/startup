@@ -43,3 +43,9 @@ footer > * {
     margin-left: 4%;
     min-width: 105px;
 }
+
+main {
+    position: fixed;
+    top: 7.59%;
+    width: 100%;
+}
