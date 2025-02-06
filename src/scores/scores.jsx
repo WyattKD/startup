@@ -3,7 +3,7 @@ import './scores.css';
 
 export function Scores() {
   return (
-    <div>
+    <div className='scores'>
       <h1 className="scores-h1">HIGH SCORES</h1>
       <table className="table table-striped">
         <thead>

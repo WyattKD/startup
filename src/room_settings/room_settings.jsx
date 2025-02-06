@@ -3,7 +3,8 @@ import './room_settings.css';
 
 export function Room_Settings() {
   return (
-    <div className="settings">
+    <main>
+      <div className="settings-box">
       <h1 className="settings-h1">Room Number: 45</h1>
       <h2 className="settings-h2">Players - 2/2</h2>
       <form method="get" action="hangman.html" className="settings-form">
@@ -27,8 +28,9 @@ export function Room_Settings() {
           <label className="form-label">Rounds: </label>
           <input type="number" className="form-control settings-input" id="exampleFormControlInput2"></input>
         </div>
-        <button type="button" className="btn btn-danger">Start!</button>
+        <button type="button" className="btn btn-danger settings-button">Start!</button>
       </form>
-    </div>
+      </div>
+    </main>
   );
 }

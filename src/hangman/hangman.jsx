@@ -3,7 +3,7 @@ import './hangman.css';
 
 export function Hangman() {
   return (
-    <div>
+    <div className="hangman">
       <div className="container text-center">
         <div className="row">
           <h1 className="hangman-h1">Hangman</h1>

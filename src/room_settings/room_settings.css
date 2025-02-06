@@ -52,15 +52,19 @@ main *{
 header, footer {
     z-index: 1;
 }
-body, html {
+    
+
+*/
+main {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 150px;
+    margin-left: 5%;   
 }
-*/
-.settings {
+.settings-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,16 +73,17 @@ body, html {
     padding: 1%;
     border-radius: 10px;
     box-shadow: 10px 10px 20px #444444;
-    width: 27%;
+    width: 35%;
     min-width: 300px;
-    max-height: 375px;
     min-height: 375px;
+    max-width: 400px;
+    
 }
-.settings * {
+.settings-box * {
     flex: 1 0 auto;
 }
 .settings-form {
-    width: 20%;
+    width: 100%;
     display: inline;
 }   
 .settings-h1, .settings-h2 {
@@ -98,6 +103,10 @@ body, html {
 .settings-button {
     width: 20%;
     margin-left: 40%;
+    min-width: 50px;
+}
+.settings-input {
+    width: 17%;
     min-width: 50px;
 }
 @media screen and (max-width: 800px) {
