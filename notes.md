@@ -49,6 +49,11 @@ npm install
 npm run dev
 npm run build
 ```
+Give elements unique class names or ids or all your css will apply to all elements across multple pages.\
+When using this component injection style of structuring, avoid add css styling to the html and body elements.\
+REACT wants every html tag to close, including <image>, <a>, and <input>.\
+REACT doesn't like the "for" attribute or "checked" attribute that some Bootstrap stuff has.\
+Use `to=''` and `path='/' exact` to make a route the default route.
 
 ## Basic GIT Commands
 ```ruby
