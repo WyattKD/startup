@@ -72,32 +72,32 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - 4 HTML pages, 1 for each part of the game.
+- [x] **Proper HTML element usage** - Used various HTML elements properly.
+- [x] **Links** - All four pages can be navigated between from any one of them.
+- [x] **Text** - Text for scores, settings, logging in, the game, etc.
+- [x] **3rd party API placeholder** - I did complete this part of the deliverable.
+- [x] **Images** - Added an image for the hanging man.
+- [x] **Login placeholder** - Login on the login page.
+- [x] **DB data placeholder** - Scores and login have a placeholder.
+- [x] **WebSocket placeholder** - Connecting two users in a game has a placeholder.
 
 ## 🚀 CSS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [x] **Header, footer, and main content body** - Consistent header and footer across the pages. Body is style in all the pages.
+- [x] **Navigation elements** - Navigation is styled.
+- [x] **Responsive to window resizing** - Most of the pages look decent and work when resized or zoomed. Doesn't hold up at the extremes.
+- [x] **Application elements** - Elements are consitently styled and spaced.
+- [x] **Application text content** - Used multiple fonts, font sizes, animations, and colors.
+- [x] **Application images** - I did complete this part of the deliverable.
 
 ## 🚀 React part 1: Routing deliverable
 
