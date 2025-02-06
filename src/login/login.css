@@ -9,16 +9,6 @@ body {
     padding-bottom: 200px;
     width: 90%;
 }
-/*
-html {
-    width: 90%;
-    
-}
-body {
-    background-color: #fdf0d5;
-    padding-bottom: 90px;
-}
-    */
 .login *{
     z-index: 0;
 }
@@ -26,11 +16,6 @@ body {
     padding-left: 0;
     margin-left: 10%;
 }
-/*
-header, footer {
-    z-index: 1;
-}
-*/
 .login-label {
     margin: auto !important;
     width: 50% !important;
@@ -91,53 +76,3 @@ header, footer {
     display: block !important;
     min-width: 75px;
 }
-/*
-header {
-    background-color: #780000;
-    position:fixed;
-    top: 0;
-    width: 100%;
-}
-li a {
-    color: #c1121f;
-}
-menu {
-  display: flex;
-  flex-direction: row !important;
-  list-style: none;
-  justify-content: center;
-}
-menu li {
-    flex: 0 0 15%;
-    min-width: 110px;
-    text-align: center;
-}
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #003049;
-    height: 7%;
-    display: flex;
-}
-footer a {
-    margin-right: 4%;
-    text-align: right;
-}
-footer > * {
-    margin-top: 15px;
-    flex: 1 0 10%;
-    margin-left: 4%;
-    min-width: 105px;
-}
-@media screen and (max-width: 340px) {
-    input::placeholder {
-        color:white !important;
-    }
-}
-@media screen and (max-width: 800px) {
-    header, footer {
-        display: none;
-    }
-}
-*/
