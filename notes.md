@@ -37,6 +37,11 @@ Be careful about using % based sizes, they don't always work how you think.\
 `!important` to override existing rules.\
 `element > *` targets all direct children of the element.
 
+## REACT Notes
+
+[First Example](https://codepen.io/wd19/pen/RNbzdqb?editors=0110)\
+[Routing](https://codepen.io/wd19/pen/XJrLGQB?editors=0110)
+
 ## Basic GIT Commands
 ```ruby
 git status #Shows changes
