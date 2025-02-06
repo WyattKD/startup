@@ -2,20 +2,11 @@
     font-family: "Knewave", Arial, Helvetica, sans-serif;
     color: black;
 }
-html {
-    width: 90%;
-    
-}
 .app {
     background-color: #fdf0d5;
     padding-bottom: 90px;
 }
-main *{
-    z-index: 0;
-}
-main {
-    padding-left: 10%;
-}
+
 header, footer {
     z-index: 1;
 }

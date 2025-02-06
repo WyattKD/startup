@@ -2,6 +2,7 @@
     font-family: "Knewave", Arial, Helvetica, sans-serif;
     color: black;
 }
+/*
 body {
     background-color: #fdf0d5;
     padding-bottom: 100px;
@@ -58,8 +59,8 @@ body, html {
     justify-content: center;
     align-items: center;
 }
-
-main {
+*/
+.settings {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,29 +74,28 @@ main {
     max-height: 375px;
     min-height: 375px;
 }
-main * {
+.settings * {
     flex: 1 0 auto;
 }
-
-input#exampleFormControlInput2 {
+.settings-form {
     width: 20%;
     display: inline;
 }   
-h1, h2 {
+.settings-h1, .settings-h2 {
     flex: 1 0 auto;
     text-shadow: 2px 2px 5px white;
 }
-h2 {
+.settings-h2 {
     font-style: italic;
 }
-form {
+.settings-form {
     display: flex;
     flex-direction: column;
     flex: 100 0 auto;
     margin-top: 40px;
 }
 
-button {
+.settings-button {
     width: 20%;
     margin-left: 40%;
     min-width: 50px;

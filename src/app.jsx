@@ -22,11 +22,22 @@ export default function App() {
                         </menu>
                     </nav>
                 </header>
+                <Routes>
+                    <Route path='/login' element={<Login />} exact />
+                    <Route path='/hangman' element={<Hangman />} />
+                    <Route path='/scores' element={<Scores />} />
+                    <Route path='/room_settings' element={<Room_Settings />} />
+                    <Route path='*' element={<NotFound />} />
+                </Routes>
                 <footer>
-                    <div class="text-reset">Wyatt Dunlap</div>
+                    <div className="text-reset">Wyatt Dunlap</div>
                     <a href="https://github.com/WyattKD/startup">GitHub</a>
                 </footer>
             </div>
         </BrowserRouter>
     );
+}
+
+function NotFound() {
+    return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
