@@ -1,17 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css';
 
 export function Login() {
   const [loginForm, setLoginForm] = React.useState({username:'', password:'', roomNumber:''})
   const [typeOfLogin, setTypeOfLogin] = React.useState('invalid')
+  const navigate = useNavigate();
 
   function handleSubmit(loginStatus) {
     console.log(loginStatus)
     if (loginStatus == "newLogin") {
       console.log("user added")
       localStorage.setItem(loginForm.username, loginForm.password)
+      localStorage.setItem("currentUser", loginForm.username)
+      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      navigate('/room_settings')
     } else if (loginStatus == "correctLogin") {
       console.log("Successful Login!")
+      localStorage.setItem("currentUser", loginForm.username)
+      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      navigate('/room_settings')
     } else if (loginStatus == "incorrectLogin") {
       console.log("Bad Password >:(")
     } else {
@@ -22,7 +30,7 @@ export function Login() {
   console.log(loginForm)
   console.log(typeOfLogin)
 
-  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '') {
+  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '' && loginForm.username != 'currentUser' && loginForm.username != "currentRoomNumber") {
     if (localStorage.getItem(loginForm.username) != null && localStorage.getItem(loginForm.username) == loginForm.password) {
       if (typeOfLogin != "correctLogin") {setTypeOfLogin("correctLogin")}
     } else if (localStorage.getItem(loginForm.username) != null) {
