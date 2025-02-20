@@ -6,6 +6,7 @@ import { Login } from './login/login';
 import { Hangman } from './hangman/hangman';
 import { Scores } from './scores/scores';
 import { Room_Settings } from './room_settings/room_settings';
+import { Input_Word } from './room_settings/input_word';
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
                     <Route path='/hangman' element={<Hangman />} />
                     <Route path='/scores' element={<Scores />} />
                     <Route path='/room_settings' element={<Room_Settings />} />
+                    <Route path='/input_word' element={<Input_Word />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <footer>

@@ -2,6 +2,15 @@ import React from 'react';
 import './hangman.css';
 
 export function Hangman() {
+  const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
+  const the_word = localStorage.getItem("theWord")
+  const z = React.useMemo(() => {
+    for (let i = 0; i < the_word.length; i++) {
+      set_game_data({...game_data, the_hidden_word: game_data.the_hidden_word += "_ "})
+    }
+  }, [])
+  console.log(the_word)
+  console.log(game_data.the_hidden_word)
   return (
     <div className="hangman">
       <div className="container text-center">
@@ -12,8 +21,8 @@ export function Hangman() {
           <div className="col">
             <h3 className="players-label">Players:</h3>
             <ul>
-              <li>(Guesser) Robert: 1500</li>
-              <li>(Word-giver) Dylan: 300</li>
+              <li>(Guesser) {localStorage.getItem("currentUser")}: {game_data.score_1}</li>
+              <li>(Word-giver) {localStorage.getItem("currentUser")}: {game_data.score_2}</li>
             </ul>
           </div>
           <div className="col">
@@ -21,11 +30,11 @@ export function Hangman() {
           </div>
           <div className="col">
             <h3 className="incorrect-guess-label">Incorrect Guesses:</h3>
-            <p>A, S, Q, L, R</p>
+            <p>{game_data.incorrect_guesses}</p>
           </div>
         </div>
         <div className="row">
-          <label className="word-label">_ E E _ _ </label>
+          <label className="word-label">{game_data.the_hidden_word} </label>
         </div>
         <div className="row">
           <label className="guess-label">Guess: </label>

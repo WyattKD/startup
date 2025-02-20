@@ -1,13 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './room_settings.css';
 
 export function Room_Settings() {
+  const navigate = useNavigate();
   return (
     <main>
       <div className="settings-box">
       <h1 className="settings-h1">Room Number: {localStorage.getItem("currentRoomNumber")}</h1>
       <h2 className="settings-h2">Players - 2/2</h2>
-      <form method="get" action="hangman.html" className="settings-form">
         <div className="form-check">
           <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
           <label className="form-check-label">
@@ -28,8 +29,7 @@ export function Room_Settings() {
           <label className="form-label">Rounds: </label>
           <input type="number" className="form-control settings-input" id="exampleFormControlInput2"></input>
         </div>
-        <button type="button" className="btn btn-danger settings-button">Start!</button>
-      </form>
+        <button onClick={() => navigate('/input_word')} type="submit" className="btn btn-danger settings-button">Start!</button>
       </div>
     </main>
   );

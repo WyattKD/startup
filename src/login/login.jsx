@@ -30,7 +30,7 @@ export function Login() {
   console.log(loginForm)
   console.log(typeOfLogin)
 
-  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '' && loginForm.username != 'currentUser' && loginForm.username != "currentRoomNumber") {
+  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '' && loginForm.username != 'currentUser' && loginForm.username != "currentRoomNumber" && loginForm.username != "theWord") {
     if (localStorage.getItem(loginForm.username) != null && localStorage.getItem(loginForm.username) == loginForm.password) {
       if (typeOfLogin != "correctLogin") {setTypeOfLogin("correctLogin")}
     } else if (localStorage.getItem(loginForm.username) != null) {
