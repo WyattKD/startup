@@ -10,7 +10,7 @@ export function Input_Word() {
     localStorage.setItem("theWord", theWord)
     navigate('/hangman')
   }
-  // make it so no word isn't an option
+  // make it so no word isn't an option and max size is 30
   return (
     <main className="word-main">
       <div className="word-box">
