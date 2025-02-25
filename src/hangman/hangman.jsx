@@ -135,7 +135,7 @@ export function Hangman() {
         </div>
         <div className="row">
           <label className="guess-label">Guess: </label>
-          <input type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)} disabled={lose || win ? true : false}></input>
+          <input autoComplete="off" autoFocus type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)} disabled={lose || win ? true : false}></input>
         </div>
       </div>
     </div>

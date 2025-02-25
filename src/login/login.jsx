@@ -46,13 +46,13 @@ export function Login() {
       <h2 className="login-h2">with a friend!</h2>
         <div className="mb-3">
           <label className="login-label">Username: </label>
-          <input onChange={e => {setLoginForm({...loginForm, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your username"} ></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {handleSubmit(typeOfLogin)}}} onChange={e => {setLoginForm({...loginForm, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your username"} ></input>
         </div>
           <label className="login-label">Password: </label>
-          <input onChange={e => {setLoginForm({...loginForm, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your password"}></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {handleSubmit(typeOfLogin)}}} onChange={e => {setLoginForm({...loginForm, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your password"}></input>
         <div className="mb-3">
           <label className="login-label">Room Number: </label>
-          <input onChange={e => {setLoginForm({...loginForm, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your room number"}></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {handleSubmit(typeOfLogin)}}} onChange={e => {setLoginForm({...loginForm, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your room number"}></input>
         </div>
         <div className="form-text" id="basic-addon4">{bad_password ? "Wrong password!" : "Enter the same room number as your friend!"}</div>
         <button onClick={() => handleSubmit(typeOfLogin)} type="submit" className="btn btn-primary login-button">Submit</button>

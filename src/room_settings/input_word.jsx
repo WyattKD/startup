@@ -22,7 +22,7 @@ export function Input_Word() {
       
         <div className="mb-3">
           <h1 className="word-h1">Enter Word: </h1>
-          <input onKeyDown={e => submit_word(e.key, e)} onChange={e => {setTheWord(e.target.value.trim())}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" placeholder={valid_word ? "" : "Not a valid word!"}></input>
+          <input autoComplete="off" onKeyDown={e => submit_word(e.key, e)} onChange={e => {setTheWord(e.target.value.trim())}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" placeholder={valid_word ? "" : "Not a valid word!"}></input>
           <button onClick={e => submit_word("Enter", e)} type="submit" className="btn btn-success word-button">Confirm</button>
         </div>
       </div>
