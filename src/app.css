@@ -78,14 +78,12 @@ header {
     top: 0;
     width: 100%;
 }
-li .nav-link {
-    color: #c1121f;
-}
+
 menu {
   display: flex;
   flex-direction: row !important;
   list-style: none;
-  justify-content: center;
+  justify-content: left;
 }
 menu li {
     flex: 0 0 15%;

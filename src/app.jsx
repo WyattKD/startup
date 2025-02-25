@@ -14,14 +14,6 @@ export default function App() {
         <BrowserRouter>
             <div>
                 <header>
-                    <nav>
-                        <menu>
-                            <li><NavLink className='nav-link' to=''>Login</NavLink></li>
-                            <li><NavLink className='nav-link' to='hangman'>Hangman</NavLink></li>
-                            <li><NavLink className='nav-link' to='scores'>High Scores</NavLink></li>
-                            <li><NavLink className='nav-link' to='room_settings'>Game Settings</NavLink></li>
-                        </menu>
-                    </nav>
                 </header>
                 <Routes>
                     <Route path='/' element={<Login />} exact />
