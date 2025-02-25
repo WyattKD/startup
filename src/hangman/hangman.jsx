@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './hangman.css';
 
 export function Hangman() {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
-  const the_word = localStorage.getItem("theWord")
+  const the_word = localStorage.getItem("theWord").toLocaleLowerCase()
   const [win, set_win] = React.useState(false)
   const [lose, set_lose] = React.useState(false)
+  const navigate = useNavigate();
   const z = React.useMemo(() => {
     for (let i = 0; i < the_word.length; i++) {
       set_game_data({...game_data, the_hidden_word: game_data.the_hidden_word += "_ "})
@@ -21,8 +23,6 @@ export function Hangman() {
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
 
   function log_guess(guess, correct, new_word) {
-    console.log(game_data.the_hidden_word)
-    console.log(win)
     if (correct) {
       set_game_data({...game_data, correct_guesses: game_data.correct_guesses.concat([guess]), score_1: game_data.score_1 + 50, the_hidden_word: new_word})
     } else {
@@ -32,20 +32,20 @@ export function Hangman() {
 
   function guess(event) {
     if (event.key == "Enter") {
-      console.log(event.target.value)
-      if (event.target.value == null || event.target.value == "" || event.target.value == " ") {
+      let letter = event.target.value.toLowerCase()
+      if (letter == null || letter == "" || letter == " ") {
         event.target.value = ""
         event.target.placeholder = "Enter your guess!"
-      } else if (game_data.incorrect_guesses.includes(event.target.value + ", ") || game_data.correct_guesses.includes(event.target.value)) {
+      } else if (game_data.incorrect_guesses.includes(letter + ", ") || game_data.correct_guesses.includes(letter)) {
         event.target.value = ""
         event.target.placeholder = "You've already guessed that letter!"
       } else {
         let previous_word = game_data.the_hidden_word
-        let new_word = find_all_letters(event.target.value, 0, previous_word)
+        let new_word = find_all_letters(letter, 0, previous_word)
         if (previous_word == new_word) {
-          log_guess(event.target.value, false, new_word)
+          log_guess(letter, false, new_word)
         } else {
-          log_guess(event.target.value, true, new_word)
+          log_guess(letter, true, new_word)
         }
         event.target.value = ""
         event.target.placeholder = "Enter your guess!"
@@ -65,7 +65,7 @@ export function Hangman() {
     let new_pos = the_word.indexOf(letter, position)
     if (new_pos == -1) {
       return word
-    } else if (new_pos != -1 && position < the_word.length-1) {
+    } else if (new_pos != -1 && position < the_word.length) {
       word = replace_letter(letter, new_pos, word) 
       return find_all_letters(letter, new_pos+1, word)
     }
@@ -80,15 +80,15 @@ export function Hangman() {
         <div style={{display: win ? 'inline-block' : 'none'}} className="alert alert-success hangman-win" role="alert">
           <div className="mb-3">
             <h1 className="hm-h1">You WIN!!! </h1>
-            <button onClick={() => submit_word()} type="submit" className="btn btn-success hm-button">Play Again</button>
-            <button onClick={() => submit_word()} type="submit" className="btn btn-success hm-button">High Scores</button>
+            <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-success hm-button">Play Again</button>
+            <button onClick={() => navigate('/scores')} type="submit" className="btn btn-success hm-button">High Scores</button>
           </div>
         </div>
-        <div style={{display: lose ? 'inline-block' : 'inline-block'}} className="alert alert-danger hangman-lose" role="alert">
+        <div style={{display: lose ? 'inline-block' : 'none'}} className="alert alert-danger hangman-lose" role="alert">
         <div className="mb-3">
             <h1 className="hm-h1">You lose! </h1>
-            <button onClick={() => submit_word()} type="submit" className="btn btn-danger hm-button">Play Again</button>
-            <button onClick={() => submit_word()} type="submit" className="btn btn-danger hm-button">High Scores</button>
+            <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-danger hm-button">Play Again</button>
+            <button onClick={() => navigate('/scores')} type="submit" className="btn btn-danger hm-button">High Scores</button>
           </div>
         </div>
         <div className="row">
@@ -112,7 +112,7 @@ export function Hangman() {
         </div>
         <div className="row">
           <label className="guess-label">Guess: </label>
-          <input type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)}></input>
+          <input type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)} disabled={lose || win ? true : false}></input>
         </div>
       </div>
     </div>

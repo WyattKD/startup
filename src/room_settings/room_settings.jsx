@@ -25,10 +25,6 @@ export function Room_Settings() {
           <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Rounds: </label>
-          <input type="number" className="form-control settings-input" id="exampleFormControlInput2"></input>
-        </div>
         <button onClick={() => navigate('/input_word')} type="submit" className="btn btn-danger settings-button">Start!</button>
       </div>
     </main>
