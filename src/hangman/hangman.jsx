@@ -12,6 +12,7 @@ export function Hangman() {
     for (let i = 0; i < the_word.length; i++) {
       set_game_data({...game_data, the_hidden_word: game_data.the_hidden_word += "_ "})
     }
+    set_game_data({...game_data, the_hidden_word: find_all_letters(" ", 0, game_data.the_hidden_word)})
   }, [])
 
   React.useEffect(() => {
@@ -20,6 +21,7 @@ export function Hangman() {
     } else if (game_data.incorrect_guesses.length >= 9) {
       set_lose(true)
     }
+    
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
 
   function log_guess(guess, correct, new_word) {
