@@ -1,10 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './scores.css';
 
 export function Scores() {
+  const navigate = useNavigate();
+  function log_out() {
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("currentRoomNumber")
+    navigate('/')
+  }
+
   return (
     <div className='scores'>
       <h1 className="scores-h1">HIGH SCORES</h1>
+      <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-info sc-button">Play Again</button>
+      <button onClick={() => log_out()} type="submit" className="btn btn-info sc-button">Log Out</button>
       <table className="table table-striped">
         <thead>
           <tr className="table-primary">

@@ -14,7 +14,12 @@ th {
     font-size: 1.5em;
 }
 .scores-h1 {
-    margin-top: 50px;
+    margin-top: 5px;
     text-align: center;
     font-family: "Honk", Arial, Helvetica, sans-serif;
+}
+.sc-button {
+    border-radius: 0% !important;
+    border-color: black;
+    border-width: 5px;
 }
