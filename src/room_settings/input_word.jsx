@@ -17,7 +17,7 @@ export function Input_Word() {
       
         <div className="mb-3">
           <h1 className="word-h1">Enter Word: </h1>
-          <input onChange={e => {setTheWord(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2"></input>
+          <input onChange={e => {setTheWord(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxlength="30"></input>
           <button onClick={() => submit_word()} type="submit" className="btn btn-success word-button">Confirm</button>
         </div>
       </div>

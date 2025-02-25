@@ -4,18 +4,92 @@ import './hangman.css';
 export function Hangman() {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
   const the_word = localStorage.getItem("theWord")
+  const [win, set_win] = React.useState(false)
+  const [lose, set_lose] = React.useState(false)
   const z = React.useMemo(() => {
     for (let i = 0; i < the_word.length; i++) {
       set_game_data({...game_data, the_hidden_word: game_data.the_hidden_word += "_ "})
     }
   }, [])
-  console.log(the_word)
-  console.log(game_data.the_hidden_word)
+
+  React.useEffect(() => {
+    if (game_data.the_hidden_word.indexOf("_") == -1) {
+      set_win(true)
+    } else if (game_data.incorrect_guesses.length >= 9) {
+      set_lose(true)
+    }
+  }, [game_data.the_hidden_word, game_data.incorrect_guesses])
+
+  function log_guess(guess, correct, new_word) {
+    console.log(game_data.the_hidden_word)
+    console.log(win)
+    if (correct) {
+      set_game_data({...game_data, correct_guesses: game_data.correct_guesses.concat([guess]), score_1: game_data.score_1 + 50, the_hidden_word: new_word})
+    } else {
+      set_game_data({...game_data, incorrect_guesses: game_data.incorrect_guesses.concat([guess + ", "]), score_2: game_data.score_2 + 50, the_hidden_word: new_word})
+    }
+  }
+
+  function guess(event) {
+    if (event.key == "Enter") {
+      console.log(event.target.value)
+      if (event.target.value == null || event.target.value == "" || event.target.value == " ") {
+        event.target.value = ""
+        event.target.placeholder = "Enter your guess!"
+      } else if (game_data.incorrect_guesses.includes(event.target.value + ", ") || game_data.correct_guesses.includes(event.target.value)) {
+        event.target.value = ""
+        event.target.placeholder = "You've already guessed that letter!"
+      } else {
+        let previous_word = game_data.the_hidden_word
+        let new_word = find_all_letters(event.target.value, 0, previous_word)
+        if (previous_word == new_word) {
+          log_guess(event.target.value, false, new_word)
+        } else {
+          log_guess(event.target.value, true, new_word)
+        }
+        event.target.value = ""
+        event.target.placeholder = "Enter your guess!"
+      }
+    }
+  }
+
+  function replace_letter(letter, position, word) {
+    position *= 2
+    let first_half = word.substring(0, position)
+    let last_half = word.substring(position + 1)
+    word = first_half + letter + last_half
+    return word
+  }
+  
+  function find_all_letters(letter, position, word) {
+    let new_pos = the_word.indexOf(letter, position)
+    if (new_pos == -1) {
+      return word
+    } else if (new_pos != -1 && position < the_word.length-1) {
+      word = replace_letter(letter, new_pos, word) 
+      return find_all_letters(letter, new_pos+1, word)
+    }
+  }
+
   return (
     <div className="hangman">
       <div className="container text-center">
         <div className="row">
           <h1 className="hangman-h1">Hangman</h1>
+        </div>
+        <div style={{display: win ? 'inline-block' : 'none'}} className="alert alert-success hangman-win" role="alert">
+          <div className="mb-3">
+            <h1 className="hm-h1">You WIN!!! </h1>
+            <button onClick={() => submit_word()} type="submit" className="btn btn-success hm-button">Play Again</button>
+            <button onClick={() => submit_word()} type="submit" className="btn btn-success hm-button">High Scores</button>
+          </div>
+        </div>
+        <div style={{display: lose ? 'inline-block' : 'inline-block'}} className="alert alert-danger hangman-lose" role="alert">
+        <div className="mb-3">
+            <h1 className="hm-h1">You lose! </h1>
+            <button onClick={() => submit_word()} type="submit" className="btn btn-danger hm-button">Play Again</button>
+            <button onClick={() => submit_word()} type="submit" className="btn btn-danger hm-button">High Scores</button>
+          </div>
         </div>
         <div className="row">
           <div className="col">
@@ -26,11 +100,11 @@ export function Hangman() {
             </ul>
           </div>
           <div className="col">
-            <img alt="Hangman" src="https://imgs.search.brave.com/7KcQL1-YjmKKgd7z5lPRBeaiPFe0ahAc1FBUxJlqr58/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAzLzE4LzA1LzU4/LzM2MF9GXzMxODA1/NTg5MV9hU09tWjJo/ZUtkN0VPQURWRUtO/clN2bEdCVDNvaWRP/OC5qcGc"></img>
+            <img alt="Hangman" src={"hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
           </div>
           <div className="col">
             <h3 className="incorrect-guess-label">Incorrect Guesses:</h3>
-            <p>{game_data.incorrect_guesses}</p>
+            <p>{game_data.incorrect_guesses.join("").substring(0, game_data.incorrect_guesses.join("").length-2)}</p>
           </div>
         </div>
         <div className="row">
@@ -38,7 +112,7 @@ export function Hangman() {
         </div>
         <div className="row">
           <label className="guess-label">Guess: </label>
-          <input type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!"></input>
+          <input type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)}></input>
         </div>
       </div>
     </div>
