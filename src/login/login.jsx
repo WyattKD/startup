@@ -8,17 +8,16 @@ export function Login() {
   const navigate = useNavigate();
 
   function handleSubmit(loginStatus) {
-    console.log(loginStatus)
     if (loginStatus == "newLogin") {
-      console.log("user added")
       localStorage.setItem(loginForm.username, loginForm.password)
       localStorage.setItem("currentUser", loginForm.username)
       localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      localStorage.setItem("scores", [])
       navigate('/room_settings')
     } else if (loginStatus == "correctLogin") {
-      console.log("Successful Login!")
       localStorage.setItem("currentUser", loginForm.username)
       localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      localStorage.setItem("scores", "")
       navigate('/room_settings')
     } else if (loginStatus == "incorrectLogin") {
       console.log("Bad Password >:(")
@@ -27,10 +26,7 @@ export function Login() {
     }
   }
 
-  console.log(loginForm)
-  console.log(typeOfLogin)
-
-  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '' && loginForm.username != 'currentUser' && loginForm.username != "currentRoomNumber" && loginForm.username != "theWord") {
+  if (loginForm.username != '' && loginForm.password != '' && loginForm.roomNumber != '' && loginForm.username != 'currentUser' && loginForm.username != "currentRoomNumber" && loginForm.username != "theWord" && loginForm.username != "scores") {
     if (localStorage.getItem(loginForm.username) != null && localStorage.getItem(loginForm.username) == loginForm.password) {
       if (typeOfLogin != "correctLogin") {setTypeOfLogin("correctLogin")}
     } else if (localStorage.getItem(loginForm.username) != null) {

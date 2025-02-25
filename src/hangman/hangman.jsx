@@ -18,11 +18,32 @@ export function Hangman() {
   React.useEffect(() => {
     if (game_data.the_hidden_word.indexOf("_") == -1) {
       set_win(true)
+      handle_scores()
     } else if (game_data.incorrect_guesses.length >= 9) {
       set_lose(true)
+      handle_scores()
     }
     
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
+
+  function handle_scores() {
+    let scores = localStorage.getItem("scores")
+    let user = localStorage.getItem("currentUser")
+    let new_scores = [[user + " (Guesser)", game_data.score_1], [user + " (Word-giver)", game_data.score_2]]
+    scores = scores.split(",")
+    console.log(scores)
+    for (var i = 0; i < scores.length-1; i+=2) {
+      new_scores.push([scores[i], scores[i+1]])
+    }
+
+    new_scores.sort((a, b) => b[1] - a[1])
+    
+    while (new_scores.length > 11) {
+      new_scores.pop()
+    }
+    console.log(new_scores)
+    localStorage.setItem("scores", new_scores)
+  }
 
   function log_guess(guess, correct, new_word) {
     if (correct) {

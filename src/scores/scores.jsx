@@ -16,53 +16,53 @@ export function Scores() {
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>Mark</td>
-            <td>9999</td>
+            <td>{localStorage.getItem("scores").split(",")[0]}</td>
+            <td>{localStorage.getItem("scores").split(",")[1]}</td>
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>1000</td>
+            <td>{localStorage.getItem("scores").split(",")[2]}</td>
+            <td>{localStorage.getItem("scores").split(",")[3]}</td>
           </tr>
           <tr>
             <th scope="row">3</th>
-            <td>Larry</td>
-            <td>-3</td>
+            <td>{localStorage.getItem("scores").split(",")[4]}</td>
+            <td>{localStorage.getItem("scores").split(",")[5]}</td>
           </tr>
           <tr>
             <th scope="row">4</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[6]}</td>
+            <td>{localStorage.getItem("scores").split(",")[7]}</td>
           </tr>
           <tr>
             <th scope="row">5</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[8]}</td>
+            <td>{localStorage.getItem("scores").split(",")[9]}</td>
           </tr>
           <tr>
             <th scope="row">6</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[10]}</td>
+            <td>{localStorage.getItem("scores").split(",")[11]}</td>
           </tr>
           <tr>
             <th scope="row">7</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[12]}</td>
+            <td>{localStorage.getItem("scores").split(",")[13]}</td>
           </tr>
           <tr>
             <th scope="row">8</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[14]}</td>
+            <td>{localStorage.getItem("scores").split(",")[15]}</td>
           </tr>
           <tr>
             <th scope="row">9</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[16]}</td>
+            <td>{localStorage.getItem("scores").split(",")[17]}</td>
           </tr>
           <tr>
             <th scope="row">10</th>
-            <td></td>
-            <td></td>
+            <td>{localStorage.getItem("scores").split(",")[18]}</td>
+            <td>{localStorage.getItem("scores").split(",")[19]}</td>
           </tr>
         </tbody>
       </table>
