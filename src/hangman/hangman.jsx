@@ -29,10 +29,8 @@ export function Hangman() {
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {
-        console.log(false)
         return false
     } else {
-        console.log(true)
         return true
     }
   }
@@ -69,7 +67,7 @@ export function Hangman() {
   }
 
   function guess(event) {
-    if (event.key == "Enter") {
+    if (event.key == "Enter" && event.target.value.toLowerCase() != "" && /^[a-zA-Z]+$/.test(event.target.value.toLowerCase())) {
       let letter = event.target.value.toLowerCase()
       if (letter == null || letter == "" || letter == " ") {
         event.target.value = ""
@@ -125,6 +123,7 @@ export function Hangman() {
         <div style={{display: lose ? 'inline-block' : 'none'}} className="alert alert-danger hangman-lose" role="alert">
         <div className="mb-3">
             <h1 className="hm-h1">You lose! </h1>
+            <h2 className="hm-h2">The word was "{the_word}" </h2>
             <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-danger hm-button">Play Again</button>
             <button onClick={() => navigate('/scores')} type="submit" className="btn btn-danger hm-button">High Scores</button>
           </div>

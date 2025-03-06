@@ -10,10 +10,8 @@ export function Input_Word() {
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {
-        console.log(false)
         return false
     } else {
-        console.log(true)
         return true
     }
   }

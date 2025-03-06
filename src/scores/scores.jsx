@@ -8,18 +8,21 @@ export function Scores() {
 
   const navigate = useNavigate();
   function log_out() {
-    localStorage.removeItem("currentUser")
-    localStorage.removeItem("currentRoomNumber")
-    navigate('/')
+    fetch(`/api/auth/logout`, {
+      method: 'delete',
+    }).finally(() => {
+      localStorage.removeItem("currentUser")
+      localStorage.removeItem("currentRoomNumber")
+      navigate('/')
+    });
+    
   }
-  
+
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {
-        console.log(false)
         return false
     } else {
-        console.log(true)
         return true
     }
   }
