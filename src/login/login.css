@@ -73,6 +73,18 @@ body {
     width: 30% !important;
     margin: auto;
     max-width: 100px;
-    display: block !important;
+    display: inline-flex !important;
     min-width: 75px;
+    justify-content: center;
+    margin-left: 39%;
+}
+.signup-button {
+    width: 30% !important;
+    margin: auto;
+    max-width: 100px;
+    display: inline-flex !important;
+    min-width: 75px;
+    margin-left: 75px;
+    margin-right: 20%;
+    justify-content: center;
 }

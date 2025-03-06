@@ -9,7 +9,26 @@ export function Login() {
   const [bad_entry, set_bad_entry] = React.useState(false)
   const navigate = useNavigate();
 
-  function handleSubmit(loginStatus) {
+  function handle_login(loginStatus) {
+    if (loginStatus == "newLogin") {
+      localStorage.setItem(loginForm.username, loginForm.password)
+      localStorage.setItem("currentUser", loginForm.username)
+      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      localStorage.setItem("scores", [])
+      navigate('/room_settings')
+    } else if (loginStatus == "correctLogin") {
+      localStorage.setItem("currentUser", loginForm.username)
+      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      localStorage.setItem("scores", "")
+      navigate('/room_settings')
+    } else if (loginStatus == "incorrectLogin") {
+      set_bad_password(true)
+    } else {
+      set_bad_entry(true)
+    }
+  }
+
+  function handle_signup(loginStatus) {
     if (loginStatus == "newLogin") {
       localStorage.setItem(loginForm.username, loginForm.password)
       localStorage.setItem("currentUser", loginForm.username)
@@ -55,7 +74,8 @@ export function Login() {
           <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {handleSubmit(typeOfLogin)}}} onChange={e => {setLoginForm({...loginForm, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your room number"}></input>
         </div>
         <div className="form-text" id="basic-addon4">{bad_password ? "Wrong password!" : "Enter the same room number as your friend!"}</div>
-        <button onClick={() => handleSubmit(typeOfLogin)} type="submit" className="btn btn-primary login-button">Submit</button>
+        <button onClick={() => handle_login(typeOfLogin)} type="login" className="btn btn-primary login-button">Login</button>
+        <button onClick={() => handle_signup(typeOfLogin)} type="signup" className="btn btn-primary signup-button">Sign Up</button>
     </div>
   );
 }
