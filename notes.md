@@ -50,10 +50,23 @@ npm run dev
 npm run build
 ```
 Give elements unique class names or ids or all your css will apply to all elements across multple pages.\
-When using this component injection style of structuring, avoid add css styling to the html and body elements.\
+When using this component injection style of structuring, avoid adding css styling to the html and body elements.\
 REACT wants every html tag to close, including <image>, <a>, and <input>.\
 REACT doesn't like the "for" attribute or "checked" attribute that some Bootstrap stuff has.\
-Use `to=''` and `path='/' exact` to make a route the default route.
+Use `to=''` and `path='/' exact` to make a route the default route.\
+useEffect can be used to update something one time at the start.\
+localStorage is great for data for the user.\
+event.target.value to get the value of an input field or text box.\
+`variable ? if_true : if_false` is a very simple if else statement.\
+`.substring()` gets a portion of a string. It is very useful.\
+`.indexOf()` to find something in a string.\
+`.includes()` to find something in an array.\
+In the future, avoid cramming all your React variables into one variable with a bunch of children. Doesn't work very well.\
+Don't make something a React variable if it doesn't need to be.\
+`/^[a-zA-Z]+$/.test(word)` checks if a word has only letters in it.\
+`autoComplete` and `autoFocus` are very useful attributes to know about.\
+`onKeyDown={e => {if (e.key=="Enter") {do_something()}` is a great way to check if the user entered something.\
+Don't forget to `import { useNavigate } from 'react-router-dom';` and `const navigate = useNavigate();` if you want to navigate.
 
 ## Basic GIT Commands
 ```ruby

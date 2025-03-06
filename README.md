@@ -111,8 +111,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - The game is fully playable. The user can easily navigate through all the pages and content. Content is updated, rendered, and reactive as would be expected.
+- [x] **Hooks** - I used useEffect and useState multiple times for different things.
 
 ## 🚀 Service deliverable
 
