@@ -18,7 +18,8 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<Login />} exact />
                     <Route path='/hangman' element={<Hangman />} />
-                    <Route path='/scores' element={<Scores />} />
+                    {check_auth() && <Route path='/scores' element={<Scores />} />}
+                    
                     <Route path='/room_settings' element={<Room_Settings />} />
                     <Route path='/input_word' element={<Input_Word />} />
                     <Route path='*' element={<NotFound />} />
@@ -35,3 +36,9 @@ export default function App() {
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
+
+async function check_auth() {
+    const response = (await fetch(`/api/auth/verify`));
+    console.log(response.body)
+    return response.verified
+  }

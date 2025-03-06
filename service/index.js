@@ -72,6 +72,9 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
+
+
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
