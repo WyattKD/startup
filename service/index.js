@@ -7,7 +7,6 @@ const app = express();
 const auth_cookie_name = 'token';
 
 let users = [];
-let scores = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
