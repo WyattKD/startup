@@ -10,43 +10,51 @@ export function Login() {
   const navigate = useNavigate();
 
   async function login() {
-    const response = await fetch(`/api/auth/login`, {
-      method: 'post',
-      body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-    if (response?.status === 200) {
-      localStorage.setItem("currentUser", loginForm.username)
-      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", "")
-      navigate('/room_settings')
-    } else if (response?.status === 401) {
-      set_error_message("Error: Incorrect password or unrecognized user.")
+    if (loginForm.username == "" || loginForm.password == "" || loginForm.roomNumber == "") {
+      set_error_message("Error: Please fill out all fields!")
     } else {
-      set_error_message("Error: Login failed.")
+      const response = await fetch(`/api/auth/login`, {
+        method: 'post',
+        body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      if (response?.status === 200) {
+        localStorage.setItem("currentUser", loginForm.username)
+        localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+        localStorage.setItem("scores", "")
+        navigate('/room_settings')
+      } else if (response?.status === 401) {
+        set_error_message("Error: Incorrect password or unrecognized user.")
+      } else {
+        set_error_message("Error: Login failed.")
+      }
     }
   }
 
   async function sign_up() {
-    const response = await fetch(`/api/auth/sign_up`, {
-      method: 'post',
-      body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-    if (response?.status === 200) {
-      //localStorage.setItem(loginForm.username, loginForm.password)
-      localStorage.setItem("currentUser", loginForm.username)
-      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", "")
-      navigate('/room_settings')
-    } else if(response?.status === 409) {
-      set_error_message("Error: User already exists.")
+    if (loginForm.username == "" || loginForm.password == "" || loginForm.roomNumber == "") {
+      set_error_message("Error: Please fill out all fields!")
     } else {
-      set_error_message("Error: Sign up failed.")
+      const response = await fetch(`/api/auth/sign_up`, {
+        method: 'post',
+        body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      if (response?.status === 200) {
+        //localStorage.setItem(loginForm.username, loginForm.password)
+        localStorage.setItem("currentUser", loginForm.username)
+        localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+        localStorage.setItem("scores", "")
+        navigate('/room_settings')
+      } else if(response?.status === 409) {
+        set_error_message("Error: User already exists.")
+      } else {
+        set_error_message("Error: Sign up failed.")
+      }
     }
   }
   
