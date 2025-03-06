@@ -9,14 +9,11 @@ export function Login() {
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const navigate = useNavigate();
 
-  function handle_login(loginStatus) {
+  async function handle_login(loginStatus) {
     if (loginStatus == "newLogin") {
       set_error_message("Error: Users doesn't exist, please sign up!")
     } else if (loginStatus == "correctLogin") {
-      localStorage.setItem("currentUser", loginForm.username)
-      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", "")
-      navigate('/room_settings')
+      login()
     } else if (loginStatus == "incorrectLogin") {
       set_error_message("Error: Incorrect password.")
     } else {
@@ -24,13 +21,46 @@ export function Login() {
     }
   }
 
-  function handle_signup(loginStatus) {
-    if (loginStatus == "newLogin") {
+  async function login() {
+    const response = await fetch(`/api/auth/login`, {
+      method: 'post',
+      body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
+      localStorage.setItem("currentUser", loginForm.username)
+      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
+      localStorage.setItem("scores", "")
+      navigate('/room_settings')
+    } else {
+      set_error_message("Error: Login failed.")
+    }
+  }
+
+  async function sign_up() {
+    const response = await fetch(`/api/auth/sign_up`, {
+      method: 'post',
+      body: JSON.stringify({ user_name: loginForm.username, password: loginForm.password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
       localStorage.setItem(loginForm.username, loginForm.password)
       localStorage.setItem("currentUser", loginForm.username)
       localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", [])
+      localStorage.setItem("scores", "")
       navigate('/room_settings')
+    } else {
+      set_error_message("Error: Sign up failed.")
+    }
+  }
+
+  async function handle_signup(loginStatus) {
+    if (loginStatus == "newLogin") {
+      sign_up()
     } else if (loginStatus == "correctLogin") {
       set_error_message("Error: User already exists!")
     } else if (loginStatus == "incorrectLogin") {
