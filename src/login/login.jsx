@@ -5,24 +5,20 @@ import './login.css';
 export function Login() {
   const [loginForm, setLoginForm] = React.useState({username:'', password:'', roomNumber:''})
   const [typeOfLogin, setTypeOfLogin] = React.useState('invalid')
-  const [bad_password, set_bad_password] = React.useState(false)
   const [bad_entry, set_bad_entry] = React.useState(false)
+  const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const navigate = useNavigate();
 
   function handle_login(loginStatus) {
     if (loginStatus == "newLogin") {
-      localStorage.setItem(loginForm.username, loginForm.password)
-      localStorage.setItem("currentUser", loginForm.username)
-      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", [])
-      navigate('/room_settings')
+      set_error_message("Error: Users doesn't exist, please sign up!")
     } else if (loginStatus == "correctLogin") {
       localStorage.setItem("currentUser", loginForm.username)
       localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
       localStorage.setItem("scores", "")
       navigate('/room_settings')
     } else if (loginStatus == "incorrectLogin") {
-      set_bad_password(true)
+      set_error_message("Error: Incorrect password.")
     } else {
       set_bad_entry(true)
     }
@@ -36,12 +32,9 @@ export function Login() {
       localStorage.setItem("scores", [])
       navigate('/room_settings')
     } else if (loginStatus == "correctLogin") {
-      localStorage.setItem("currentUser", loginForm.username)
-      localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
-      localStorage.setItem("scores", "")
-      navigate('/room_settings')
+      set_error_message("Error: User already exists!")
     } else if (loginStatus == "incorrectLogin") {
-      set_bad_password(true)
+      set_error_message("Error: User already exists!")
     } else {
       set_bad_entry(true)
     }
@@ -73,7 +66,7 @@ export function Login() {
           <label className="login-label">Room Number: </label>
           <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {handleSubmit(typeOfLogin)}}} onChange={e => {setLoginForm({...loginForm, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder={bad_entry ? "Please fill out all fields!" : "Enter your room number"}></input>
         </div>
-        <div className="form-text" id="basic-addon4">{bad_password ? "Wrong password!" : "Enter the same room number as your friend!"}</div>
+        <div className="form-text" id="basic-addon4">{error_message}</div>
         <button onClick={() => handle_login(typeOfLogin)} type="login" className="btn btn-primary login-button">Login</button>
         <button onClick={() => handle_signup(typeOfLogin)} type="signup" className="btn btn-primary signup-button">Sign Up</button>
     </div>
