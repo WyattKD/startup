@@ -45,7 +45,6 @@ export function Login() {
         },
       });
       if (response?.status === 200) {
-        //localStorage.setItem(loginForm.username, loginForm.password)
         localStorage.setItem("currentUser", loginForm.username)
         localStorage.setItem("currentRoomNumber", loginForm.roomNumber)
         localStorage.setItem("scores", "")
