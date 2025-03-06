@@ -26,6 +26,21 @@ export function Hangman() {
     
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
 
+  async function check_auth() {
+    const response = await fetch('/api/auth/verify')
+    if (response?.status === 401) {
+        console.log(false)
+        return false
+    } else {
+        console.log(true)
+        return true
+    }
+  }
+  React.useEffect(() => {
+    check_auth().then((verified) => {if(!verified){navigate('/')}
+  })
+  }, [])
+
   function handle_scores() {
     let scores = localStorage.getItem("scores")
     let user = localStorage.getItem("currentUser")

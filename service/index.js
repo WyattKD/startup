@@ -72,7 +72,9 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-
+apiRouter.get('/auth/verify', verifyAuth, (_req, res) => {
+  res.status(200).send({ msg: 'Authorized' })
+});
 
 
 // Default error handler

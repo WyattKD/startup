@@ -4,6 +4,22 @@ import './room_settings.css';
 
 export function Room_Settings() {
   const navigate = useNavigate();
+
+  async function check_auth() {
+    const response = await fetch('/api/auth/verify')
+    if (response?.status === 401) {
+        console.log(false)
+        return false
+    } else {
+        console.log(true)
+        return true
+    }
+  }
+  React.useEffect(() => {
+    check_auth().then((verified) => {if(!verified){navigate('/')}
+  })
+  }, [])
+
   return (
     <main>
       <div className="settings-box">

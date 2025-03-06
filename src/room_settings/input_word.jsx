@@ -6,6 +6,22 @@ export function Input_Word() {
   const navigate = useNavigate();
   const [theWord, setTheWord] = React.useState('')
   const [valid_word, set_valid_word] = React.useState(true)
+
+  async function check_auth() {
+    const response = await fetch('/api/auth/verify')
+    if (response?.status === 401) {
+        console.log(false)
+        return false
+    } else {
+        console.log(true)
+        return true
+    }
+  }
+  React.useEffect(() => {
+    check_auth().then((verified) => {if(!verified){navigate('/')}
+  })
+  }, [])
+
   function submit_word(key="Enter", event=null) {
     if (key == "Enter" && theWord != "" && /^[a-zA-Z]+$/.test(theWord)) {
       localStorage.setItem("theWord", theWord)
