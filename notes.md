@@ -68,6 +68,15 @@ Don't make something a React variable if it doesn't need to be.\
 `onKeyDown={e => {if (e.key=="Enter") {do_something()}` is a great way to check if the user entered something.\
 Don't forget to `import { useNavigate } from 'react-router-dom';` and `const navigate = useNavigate();` if you want to navigate.
 
+## Service Notes
+
+Using Express, bcrypt, uuid, and cookieParser.\
+POST = add or append.\
+`response?.status` to get the status of the endpoint request.\
+To properly debug, do `npm run dev` then hit F5 in the index.js file.\
+`check_auth().then((verified) => {if(!verified){navigate('/')}` check_auth checks if the user has the cookie and the arrow function navigates away from the page if they are not.
+
+
 ## Basic GIT Commands
 ```ruby
 git status #Shows changes
