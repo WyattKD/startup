@@ -15,8 +15,17 @@ export function Room_Settings() {
   }
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
+    localStorage.setItem("real_words?", "false")
   })
   }, [])
+  
+  function change_real_words() {
+    if (localStorage.getItem("real_words?") == "true") {
+      localStorage.setItem("real_words?", "false")
+    } else {
+      localStorage.setItem("real_words?", "true")
+    }
+  }
 
   return (
     <main>
@@ -36,7 +45,7 @@ export function Room_Settings() {
           </label>
         </div>
         <div className="form-check form-switch">
-          <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
+          <input onClick={() => change_real_words()} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
         <button onClick={() => navigate('/input_word')} type="submit" className="btn btn-danger settings-button">Start!</button>
