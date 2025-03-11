@@ -23,7 +23,6 @@ api_router.post('/auth/sign_up', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await sign_up_user(req.body.user_name, req.body.password);
-
     set_auth_cookie(res, user.token);
     res.send({ user_name: user.user_name });
   }

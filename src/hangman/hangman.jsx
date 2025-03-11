@@ -44,17 +44,13 @@ export function Hangman() {
     let user = localStorage.getItem("currentUser")
     let new_scores = [[user + " (Guesser)", game_data.score_1], [user + " (Word-giver)", game_data.score_2]]
     scores = scores.split(",")
-    console.log(scores)
     for (var i = 0; i < scores.length-1; i+=2) {
       new_scores.push([scores[i], scores[i+1]])
     }
-
     new_scores.sort((a, b) => b[1] - a[1])
-    
     while (new_scores.length > 11) {
       new_scores.pop()
     }
-    console.log(new_scores)
     localStorage.setItem("scores", new_scores)
   }
 
