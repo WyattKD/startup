@@ -18,10 +18,12 @@ export function Hangman() {
   React.useEffect(() => {
     if (game_data.the_hidden_word.indexOf("_") == -1) {
       set_win(true)
-      handle_scores()
+      handle_scores(game_data.score_1, " (Guesser)")
+      handle_scores(game_data.score_2, " (Word-giver)")
     } else if (game_data.incorrect_guesses.length >= 9) {
       set_lose(true)
-      handle_scores()
+      handle_scores(game_data.score_1, " (Guesser)")
+      handle_scores(game_data.score_2, " (Word-giver)")
     }
     
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
@@ -39,20 +41,17 @@ export function Hangman() {
   })
   }, [])
 
-  function handle_scores() {
-    let scores = localStorage.getItem("scores")
-    let user = localStorage.getItem("currentUser")
-    let new_scores = [[user + " (Guesser)", game_data.score_1], [user + " (Word-giver)", game_data.score_2]]
-    scores = scores.split(",")
-    for (var i = 0; i < scores.length-1; i+=2) {
-      new_scores.push([scores[i], scores[i+1]])
-    }
-    new_scores.sort((a, b) => b[1] - a[1])
-    while (new_scores.length > 11) {
-      new_scores.pop()
-    }
-    localStorage.setItem("scores", new_scores)
+  async function handle_scores(score, role) {
+    let user = localStorage.getItem("currentUser") + role
+    const new_score = { name: user, score: score};
+
+    await fetch('/api/score', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(new_score),
+    });
   }
+
 
   function log_guess(guess, correct, new_word) {
     if (correct) {

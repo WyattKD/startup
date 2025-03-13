@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './scores.css';
 
 export function Scores() {
-
+  const [scores, set_scores] = React.useState([]);
   
 
   const navigate = useNavigate();
@@ -28,8 +28,34 @@ export function Scores() {
   }
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
+    fetch('/api/scores')
+      .then((response) => response.json())
+      .then((scores) => {
+        set_scores(scores);
+        console.log();
+    });
+    
   })
   }, [])
+
+  const score_rows = [];
+  if (scores.length) {
+    for (const [i, score] of scores.entries()) {
+      score_rows.push(
+        <tr key={i}>
+          <td>{i+1}</td>
+          <td>{score.name}</td>
+          <td>{score.score}</td>
+        </tr>
+      );
+    }
+  } else {
+    score_rows.push(
+      <tr key='0'>
+        <td colSpan='3'>No High Scores Yet!</td>
+      </tr>
+    );
+  }
 
 
   return (
@@ -45,58 +71,7 @@ export function Scores() {
             <th scope="col">Score</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>{localStorage.getItem("scores").split(",")[0]}</td>
-            <td>{localStorage.getItem("scores").split(",")[1]}</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>{localStorage.getItem("scores").split(",")[2]}</td>
-            <td>{localStorage.getItem("scores").split(",")[3]}</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>{localStorage.getItem("scores").split(",")[4]}</td>
-            <td>{localStorage.getItem("scores").split(",")[5]}</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>{localStorage.getItem("scores").split(",")[6]}</td>
-            <td>{localStorage.getItem("scores").split(",")[7]}</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>{localStorage.getItem("scores").split(",")[8]}</td>
-            <td>{localStorage.getItem("scores").split(",")[9]}</td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>{localStorage.getItem("scores").split(",")[10]}</td>
-            <td>{localStorage.getItem("scores").split(",")[11]}</td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>{localStorage.getItem("scores").split(",")[12]}</td>
-            <td>{localStorage.getItem("scores").split(",")[13]}</td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>{localStorage.getItem("scores").split(",")[14]}</td>
-            <td>{localStorage.getItem("scores").split(",")[15]}</td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>{localStorage.getItem("scores").split(",")[16]}</td>
-            <td>{localStorage.getItem("scores").split(",")[17]}</td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>{localStorage.getItem("scores").split(",")[18]}</td>
-            <td>{localStorage.getItem("scores").split(",")[19]}</td>
-          </tr>
-        </tbody>
+        <tbody>{score_rows}</tbody>
       </table>
     </div>
   );

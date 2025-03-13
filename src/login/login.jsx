@@ -13,7 +13,7 @@ export function Login() {
     } else {
       const response = await fetch(`/api/auth/login`, {
         method: 'post',
-        body: JSON.stringify({ user_name: login_form.username, password: login_form.password }),
+        body: JSON.stringify({ username: login_form.username, password: login_form.password }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
@@ -37,7 +37,7 @@ export function Login() {
     } else {
       const response = await fetch(`/api/auth/sign_up`, {
         method: 'post',
-        body: JSON.stringify({ user_name: login_form.username, password: login_form.password }),
+        body: JSON.stringify({ username: login_form.username, password: login_form.password }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
