@@ -119,7 +119,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] **Node.js/Express HTTP service** - The website now has a backend using Node.js/Express.
-- [x] **Static middleware for frontend** - Express is used to serve up the fronted.
+- [x] **Static middleware for frontend** - Express is used to serve up the frontend.
 - [x] **Calls to third party endpoints** - A third party dictionary API is called to verify the words submitted by the user.
 - [x] **Backend service endpoints** - User data is stored on the backend and accessed with endpoints.
 - [x] **Frontend calls service endpoints** - The frontend makes calls to the backend when validating users and uploading user data.
