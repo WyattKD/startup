@@ -39,7 +39,7 @@ async function add_score(score) {
 }
 
 function get_high_scores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
+  const query = { score: { $gt: 0 } };
   const options = {
     sort: { score: -1 },
     limit: 10,
