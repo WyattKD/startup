@@ -76,6 +76,21 @@ POST = add or append.\
 To properly debug, do `npm run dev` then hit F5 in the index.js file.\
 `check_auth().then((verified) => {if(!verified){navigate('/')}` check_auth checks if the user has the cookie and the arrow function navigates away from the page if they are not.
 
+## Database Notes
+
+`module.exports` for using funcions for different files.
+```ruby
+const query = { score: { $gt: 0 } };
+  const options = {
+    sort: { score: -1 },
+    limit: 10,
+  };
+  const cursor = scoreCollection.find(query, options);
+```
+to sort scores.
+
+
+
 
 ## Basic GIT Commands
 ```ruby
