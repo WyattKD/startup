@@ -2,13 +2,14 @@
     font-family: "VT323", Arial, Helvetica, sans-serif;
     color: black;
 }
-body {
-    background-image: url("graph-background.jpg");
+.app-body {
+    background-image: url("/graph-background.jpg");
     background-size: cover;
     background-color: rgba(255,255,255,0.85);
     background-blend-mode: lighten;
     padding-bottom: 200px;
-    width: 90%;
+    width: 100%;
+    position: absolute;
 }
 .app {
     background-color: #fdf0d5;
@@ -32,6 +33,10 @@ header > * {
     flex: 1 0 10%;
     margin-left: 4%;
     min-width: 105px;
+}
+header div {
+    font-size: 1.5em;
+    margin-top: 1px;
 }
 menu {
   display: flex;

@@ -3,7 +3,7 @@
 }
 .login {
     padding-left: 0;
-    margin-left: 10%;
+    margin-left: 0%;
 }
 .login-label {
     margin: auto !important;
@@ -23,7 +23,7 @@
     margin: auto;
     max-width: 600px;
     text-align: center;
-    margin-bottom: 50px !important;
+    margin-bottom: 30px !important;
     min-width: 600px !important;  
     font-size: 1.7em;
 }
@@ -68,7 +68,7 @@
     display: inline-flex !important;
     min-width: 75px;
     justify-content: center;
-    margin-left: 39%;
+    margin-left: 41%;
     font-size: 1.3em;
     background-color: #FF955A;
     border: 0px;

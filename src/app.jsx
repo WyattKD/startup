@@ -30,7 +30,7 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <div>
+            <div className="app-body">
                 <header>
                     {user != null && (<div>User: {user}</div>)}
                     {user != null && (<button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button>)}
