@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './room_settings.css';
 
-export function Room_Settings() {
+export function Room_Settings({user, set_user}) {
   const navigate = useNavigate();
 
   async function check_auth() {
@@ -16,8 +16,9 @@ export function Room_Settings() {
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
     localStorage.setItem("real_words?", "false")
+    set_user(localStorage.getItem('currentUser'))
   })
-  }, [])
+  }, [user])
   
   function change_real_words() {
     if (localStorage.getItem("real_words?") == "true") {

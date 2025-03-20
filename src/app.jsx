@@ -10,17 +10,37 @@ import { Input_Word } from './room_settings/input_word';
 
 
 export default function App() {
+
+    const [user, set_user] = React.useState(localStorage.getItem('currentUser'))
+
+    React.useEffect(() => {
+        set_user(localStorage.getItem('currentUser'))
+    }, [])
+
+
+    function log_out() {
+        fetch(`/api/auth/logout`, {
+          method: 'delete',
+        }).finally(() => {
+          set_user(null)
+          localStorage.removeItem("currentUser")
+          localStorage.removeItem("currentRoomNumber")
+        });
+    }
+
     return (
         <BrowserRouter>
             <div>
                 <header>
+                    {user != null && (<div>User: {user}</div>)}
+                    {user != null && (<button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button>)}
                 </header>
                 <Routes>
                     <Route path='/' element={<Login />} exact />
-                    <Route path='/hangman' element={<Hangman />} />
-                    <Route path='/scores' element={<Scores />} />
-                    <Route path='/room_settings' element={<Room_Settings />} />
-                    <Route path='/input_word' element={<Input_Word />} />
+                    <Route path='/hangman' element={<Hangman user = {user} />} />
+                    <Route path='/scores' element={<Scores user = {user} />} />
+                    <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user}/>} />
+                    <Route path='/input_word' element={<Input_Word user = {user} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <footer>

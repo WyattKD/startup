@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './input_word.css';
 
-export function Input_Word() {
+export function Input_Word({user}) {
   const navigate = useNavigate();
   const [the_word, set_the_word] = React.useState('')
   const [valid_word, set_valid_word] = React.useState(true)
@@ -19,7 +19,7 @@ export function Input_Word() {
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
   })
-  }, [])
+  }, [user])
 
   async function verify_word(word) {
     const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
@@ -51,7 +51,7 @@ export function Input_Word() {
         <div className="mb-3">
           <h1 className="word-h1">Enter Word: </h1>
           <input autoComplete="off" onKeyDown={e => submit_real_word(e.key, e)} onChange={e => {set_the_word(e.target.value.trim()); set_input_text(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" value={input_text} placeholder={valid_word ? "" : "Not a valid word!"}></input>
-          <button onClick={e => submit_real_word("Enter", e)} type="submit" className="btn btn-success word-button">Confirm</button>
+          <button onClick={e => submit_real_word("Enter", e)} type="submit" className="btn btn-danger word-button">Confirm</button>
         </div>
       </div>
     </main>

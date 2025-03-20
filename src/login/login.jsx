@@ -72,6 +72,8 @@ export function Login() {
         <div className="form-text" id="basic-addon4">{error_message}</div>
         <button onClick={() => login()} type="login" className="btn btn-primary login-button">Login</button>
         <button onClick={() => sign_up()} type="signup" className="btn btn-primary signup-button">Sign Up</button>
+        <img alt="Hangman-dance" className="gif-right" src={"stickman-dance.gif"}></img>
+        <img alt="Hangman-dance" className="gif-left" src={"stickman-dance.gif"}></img>
     </div>
   );
 }

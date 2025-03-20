@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './hangman.css';
 
-export function Hangman() {
+export function Hangman({user}) {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
   const the_word = localStorage.getItem("the_word").toLocaleLowerCase()
   const [win, set_win] = React.useState(false)
@@ -39,7 +39,7 @@ export function Hangman() {
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
   })
-  }, [])
+  }, [user])
 
   async function handle_scores(score, role) {
     let user = localStorage.getItem("currentUser") + role
@@ -127,16 +127,16 @@ export function Hangman() {
           <div className="col">
             <h3 className="players-label">Players:</h3>
             <ul>
-              <li>(Guesser) {localStorage.getItem("currentUser")}: {game_data.score_1}</li>
-              <li>(Word-giver) {localStorage.getItem("currentUser")}: {game_data.score_2}</li>
+              <li className="hm-li">(Guesser) {localStorage.getItem("currentUser")}: {game_data.score_1}</li>
+              <li className="hm-li">(Word-giver) {localStorage.getItem("currentUser")}: {game_data.score_2}</li>
             </ul>
           </div>
           <div className="col">
-            <img alt="Hangman" src={"hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
+            <img alt="Hangman" className="hm-img" src={"hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
           </div>
           <div className="col">
             <h3 className="incorrect-guess-label">Incorrect Guesses:</h3>
-            <p>{game_data.incorrect_guesses.join("").substring(0, game_data.incorrect_guesses.join("").length-2)}</p>
+            <p className="hm-p">{game_data.incorrect_guesses.join("").substring(0, game_data.incorrect_guesses.join("").length-2)}</p>
           </div>
         </div>
         <div className="row">

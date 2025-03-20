@@ -2,21 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './scores.css';
 
-export function Scores() {
+export function Scores({user}) {
   const [scores, set_scores] = React.useState([]);
   
 
   const navigate = useNavigate();
-  function log_out() {
-    fetch(`/api/auth/logout`, {
-      method: 'delete',
-    }).finally(() => {
-      localStorage.removeItem("currentUser")
-      localStorage.removeItem("currentRoomNumber")
-      navigate('/')
-    });
-    
-  }
+  
 
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
@@ -36,7 +27,7 @@ export function Scores() {
     });
     
   })
-  }, [])
+  }, [user])
 
   const score_rows = [];
   if (scores.length) {
@@ -61,8 +52,7 @@ export function Scores() {
   return (
     <div className='scores'>
       <h1 className="scores-h1">HIGH SCORES</h1>
-      <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-info sc-button">Play Again</button>
-      <button onClick={() => log_out()} type="submit" className="btn btn-info sc-button">Log Out</button>
+      
       <table className="table table-striped">
         <thead>
           <tr className="table-primary">
@@ -73,6 +63,7 @@ export function Scores() {
         </thead>
         <tbody>{score_rows}</tbody>
       </table>
+      <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-info sc-button">Play Again</button>
     </div>
   );
 }
