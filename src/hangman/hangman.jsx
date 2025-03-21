@@ -1,12 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './hangman.css';
+import { useSound } from 'use-sound';
 
 export function Hangman({user}) {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
   const the_word = localStorage.getItem("the_word").toLocaleLowerCase()
   const [win, set_win] = React.useState(false)
   const [lose, set_lose] = React.useState(false)
+  const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+
+  const [correct_guess_sfx] = useSound('chaching.mp4');
+  const [incorrect_guess_sfx] = useSound('ahhdangit.mp4');
+  const [win_sfx] = useSound('yippee.mp4');
+  const [lose_sfx] = useSound('wawawaaa.mp4');
+
   const navigate = useNavigate();
   const z = React.useMemo(() => {
     for (let i = 0; i < the_word.length; i++) {
@@ -17,10 +25,12 @@ export function Hangman({user}) {
 
   React.useEffect(() => {
     if (game_data.the_hidden_word.indexOf("_") == -1) {
+      win_sfx()
       set_win(true)
       handle_scores(game_data.score_1, " (Guesser)")
       handle_scores(game_data.score_2, " (Word-giver)")
     } else if (game_data.incorrect_guesses.length >= 9) {
+      lose_sfx()
       set_lose(true)
       handle_scores(game_data.score_1, " (Guesser)")
       handle_scores(game_data.score_2, " (Word-giver)")
@@ -55,8 +65,14 @@ export function Hangman({user}) {
 
   function log_guess(guess, correct, new_word) {
     if (correct) {
+      if (the_word.length - game_data.correct_guesses.length > 1) {
+        correct_guess_sfx()
+      }
       set_game_data({...game_data, correct_guesses: game_data.correct_guesses.concat([guess]), score_1: game_data.score_1 + 50, the_hidden_word: new_word})
     } else {
+      if (game_data.incorrect_guesses.length < 8) {
+        incorrect_guess_sfx()
+      }
       set_game_data({...game_data, incorrect_guesses: game_data.incorrect_guesses.concat([guess + ", "]), score_2: game_data.score_2 + 50, the_hidden_word: new_word})
     }
   }
@@ -102,6 +118,15 @@ export function Hangman({user}) {
     }
   }
 
+  function button_navigate(type) {
+    button_click()
+    if (type == "room_settings") {
+      navigate('/room_settings')
+    } else if (type == "scores") {
+      navigate('/scores')
+    }
+  }
+
   return (
     <div className="hangman">
       <div className="container text-center">
@@ -111,16 +136,16 @@ export function Hangman({user}) {
         <div style={{display: win ? 'inline-block' : 'none'}} className="alert alert-success hangman-win" role="alert">
           <div className="mb-3">
             <h1 className="hm-h1">You WIN!!! </h1>
-            <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-success hm-button">Play Again</button>
-            <button onClick={() => navigate('/scores')} type="submit" className="btn btn-success hm-button">High Scores</button>
+            <button onClick={() => button_navigate("room_settings")} type="submit" className="btn btn-success hm-button">Play Again</button>
+            <button onClick={() => button_navigate("scores")} type="submit" className="btn btn-success hm-button">High Scores</button>
           </div>
         </div>
         <div style={{display: lose ? 'inline-block' : 'none'}} className="alert alert-danger hangman-lose" role="alert">
         <div className="mb-3">
             <h1 className="hm-h1">You lose! </h1>
             <h2 className="hm-h2">The word was "{the_word}" </h2>
-            <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-danger hm-button">Play Again</button>
-            <button onClick={() => navigate('/scores')} type="submit" className="btn btn-danger hm-button">High Scores</button>
+            <button onClick={() => button_navigate("room_settings")} type="submit" className="btn btn-danger hm-button">Play Again</button>
+            <button onClick={() => button_navigate("scores")} type="submit" className="btn btn-danger hm-button">High Scores</button>
           </div>
         </div>
         <div className="row">

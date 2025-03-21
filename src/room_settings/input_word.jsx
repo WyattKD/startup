@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './input_word.css';
+import { useSound } from 'use-sound';
 
 export function Input_Word({user}) {
   const navigate = useNavigate();
   const [the_word, set_the_word] = React.useState('')
   const [valid_word, set_valid_word] = React.useState(true)
   const [input_text, set_input_text] = React.useState("")
+  const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
@@ -24,6 +26,11 @@ export function Input_Word({user}) {
   async function verify_word(word) {
     const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     return (response.ok)
+  }
+
+  async function button_submit(e) {
+    button_click()
+    submit_real_word("Enter", e)
   }
 
   async function submit_real_word(key="Enter", event=null) {
@@ -51,7 +58,7 @@ export function Input_Word({user}) {
         <div className="mb-3">
           <h1 className="word-h1">Enter Word: </h1>
           <input autoComplete="off" onKeyDown={e => submit_real_word(e.key, e)} onChange={e => {set_the_word(e.target.value.trim()); set_input_text(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" value={input_text} placeholder={valid_word ? "" : "Not a valid word!"}></input>
-          <button onClick={e => submit_real_word("Enter", e)} type="submit" className="btn btn-danger word-button">Confirm</button>
+          <button onClick={e => button_submit(e)} type="submit" className="btn btn-danger word-button">Confirm</button>
         </div>
       </div>
     </main>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './room_settings.css';
+import { useSound } from 'use-sound'
 
 export function Room_Settings({user, set_user}) {
   const navigate = useNavigate();
+  const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
@@ -28,6 +30,15 @@ export function Room_Settings({user, set_user}) {
     }
   }
 
+  function handle_button_click(type) {
+    button_click()
+    if (type == "navigate") {
+      navigate('/input_word')
+    } else if (type == "change_real_words") {
+      change_real_words()
+    }
+  }
+
   return (
     <main>
       <div className="settings-box">
@@ -46,10 +57,10 @@ export function Room_Settings({user, set_user}) {
           </label>
         </div>
         <div className="form-check form-switch">
-          <input onClick={() => change_real_words()} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
+          <input onClick={() => handle_button_click("change_real_words")} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
-        <button onClick={() => navigate('/input_word')} type="submit" className="btn btn-danger settings-button">Start!</button>
+        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button">Start!</button>
       </div>
     </main>
   );

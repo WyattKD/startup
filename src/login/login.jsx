@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import {useSound} from 'use-sound'
 
 export function Login() {
   const [login_form, set_login_form] = React.useState({username:'', password:'', roomNumber:''})
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
+  const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
   const navigate = useNavigate();
 
   async function login() {
@@ -54,6 +56,16 @@ export function Login() {
       }
     }
   }
+
+  function handle_button_click(type) {
+    if (type == "login") {
+      button_click()
+      login()
+    } else if (type == "sign_up") {
+      button_click()
+      sign_up()
+    }
+  }
   
   return (
     <div className="login">
@@ -70,8 +82,8 @@ export function Login() {
           <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
         </div>
         <div className="form-text" id="basic-addon4">{error_message}</div>
-        <button onClick={() => login()} type="login" className="btn btn-primary login-button">Login</button>
-        <button onClick={() => sign_up()} type="signup" className="btn btn-primary signup-button">Sign Up</button>
+        <button onClick={() => handle_button_click("login")} type="login" className="btn btn-primary login-button">Login</button>
+        <button onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-primary signup-button">Sign Up</button>
         <img alt="Hangman-dance" className="gif-right" src={"stickman-dance.gif"}></img>
         <img alt="Hangman-dance" className="gif-left" src={"stickman-dance.gif"}></img>
     </div>

@@ -7,11 +7,12 @@ import { Hangman } from './hangman/hangman';
 import { Scores } from './scores/scores';
 import { Room_Settings } from './room_settings/room_settings';
 import { Input_Word } from './room_settings/input_word';
-
+import { useSound } from 'use-sound';
 
 export default function App() {
 
     const [user, set_user] = React.useState(localStorage.getItem('currentUser'))
+    const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 
     React.useEffect(() => {
         set_user(localStorage.getItem('currentUser'))
@@ -19,6 +20,7 @@ export default function App() {
 
 
     function log_out() {
+        button_click()
         fetch(`/api/auth/logout`, {
           method: 'delete',
         }).finally(() => {

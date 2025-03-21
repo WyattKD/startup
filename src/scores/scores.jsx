@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './scores.css';
+import {useSound} from 'use-sound'
 
 export function Scores({user}) {
   const [scores, set_scores] = React.useState([]);
-  
+  const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 
   const navigate = useNavigate();
   
@@ -47,7 +48,10 @@ export function Scores({user}) {
       </tr>
     );
   }
-
+  function button_navigate() {
+    button_click()
+    navigate('/room_settings')
+  }
 
   return (
     <div className='scores'>
@@ -63,7 +67,7 @@ export function Scores({user}) {
         </thead>
         <tbody>{score_rows}</tbody>
       </table>
-      <button onClick={() => navigate('/room_settings')} type="submit" className="btn btn-info sc-button">Play Again</button>
+      <button onClick={() => button_navigate()} type="submit" className="btn btn-info sc-button">Play Again</button>
     </div>
   );
 }
