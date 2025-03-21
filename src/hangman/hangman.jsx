@@ -157,7 +157,8 @@ export function Hangman({user}) {
             </ul>
           </div>
           <div className="col">
-            <img alt="Hangman" className="hm-img" src={"hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
+            <img alt="Hangman" className="hm-img" src={win ? "hangman0.png" : "hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
+            {win && <img alt="Hangman-dance" className="win-gif" src={"stickman-dance.gif"}></img>}
           </div>
           <div className="col">
             <h3 className="incorrect-guess-label">Incorrect Guesses:</h3>
