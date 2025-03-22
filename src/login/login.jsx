@@ -2,13 +2,21 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import {useSound} from 'use-sound'
+import { useWebSocket } from '../WebSocketContext.jsx';
 
 export function Login() {
   const [login_form, set_login_form] = React.useState({username:'', password:'', roomNumber:''})
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
   const navigate = useNavigate();
-
+  const ws = useWebSocket();
+  React.useEffect(() => {
+    if (ws) {
+      ws.onopen = () => {
+        console.log('Connected to WebSocket server');
+      }
+    }
+  }, [ws]);
   async function login() {
     if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
       set_error_message("Error: Please fill out all fields!")
@@ -59,6 +67,14 @@ export function Login() {
     }
   }
 
+  function join_room(room, player) {
+    const join_info = JSON.stringify({
+        type: 'join',
+        room: room,
+        player: player,
+    });
+    ws.send(join_info);
+  } 
   function handle_button_click(type) {
     if (type == "login") {
       button_click()
@@ -70,31 +86,6 @@ export function Login() {
   }
 
 
-  let port = window.location.port;
-  const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-  const socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
-
-  // Event listener for when the connection is open
-  socket.addEventListener('open', (event) => {
-      console.log('Connected to WebSocket server');
-  });
-
-  // Event listener for receiving messages from the server
-  socket.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
-      console.log('Message from server:', data);
-  });
-
-
-  function join_room(room, player) {
-    const join_info = JSON.stringify({
-        type: 'join',
-        room: room,
-        player: player,
-    });
-    socket.send(join_info);
-  }
-  
   return (
     <div className="login">
       <h1 className="login-h1">Hangman</h1>

@@ -39,9 +39,11 @@ function room_handler(httpServer) {
             }
 
             if (type === 'get_players') {
-                rooms[room].forEach((client) => {
-                    client.send(JSON.stringify({ type: 'players', message: rooms[room].length }));
-                });
+                if (rooms[room].length >= 1) {
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'players', message: rooms[room].length }));
+                    });
+                }
             }
 
             if (type === 'message') {
