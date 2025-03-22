@@ -24,6 +24,7 @@ export function Login() {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
         localStorage.setItem("scores", "")
+        join_room(login_form.roomNumber, login_form.username)
         navigate('/room_settings')
       } else if (response?.status === 401) {
         set_error_message("Error: Incorrect password or unrecognized user.")
@@ -48,6 +49,7 @@ export function Login() {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
         localStorage.setItem("scores", "")
+        join_room(login_form.roomNumber, login_form.username)
         navigate('/room_settings')
       } else if(response?.status === 409) {
         set_error_message("Error: User already exists.")
@@ -65,6 +67,32 @@ export function Login() {
       button_click()
       sign_up()
     }
+  }
+
+
+  let port = window.location.port;
+  const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+  const socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+
+  // Event listener for when the connection is open
+  socket.addEventListener('open', (event) => {
+      console.log('Connected to WebSocket server');
+  });
+
+  // Event listener for receiving messages from the server
+  socket.addEventListener('message', (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Message from server:', data);
+  });
+
+
+  function join_room(room, player) {
+    const join_info = JSON.stringify({
+        type: 'join',
+        room: room,
+        player: player,
+    });
+    socket.send(join_info);
   }
   
   return (

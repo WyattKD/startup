@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { room_handler } = require('./websocket.js');
 
 const auth_cookie_name = 'token';
 
@@ -127,6 +128,8 @@ function set_auth_cookie(res, auth_token) {
   });
 }
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+const http_service = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
+
+room_handler(http_service);
