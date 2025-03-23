@@ -12,6 +12,25 @@ export function Login() {
   const ws = useWebSocket();
   React.useEffect(() => {
     if (ws) {
+      const leave_info = JSON.stringify({
+        type: 'leave_room',
+        room: "",
+        player: "",
+        guess: "",
+        word_giver: "",
+      });
+      ws.send(leave_info);
+      if (localStorage.getItem("currentUser") != null) {
+        ws.send(JSON.stringify({
+          type: 'get_players',  
+          room: localStorage.getItem('currentRoomNumber'),
+          player: "",
+        }));
+      }
+    }
+  }, [])
+  React.useEffect(() => {
+    if (ws) {
       ws.onopen = () => {
         console.log('Connected to WebSocket server');
       }

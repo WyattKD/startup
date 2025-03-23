@@ -14,6 +14,7 @@ export function Room_Settings({user, set_user}) {
   const [current_word_giver, set_current_word_giver] = React.useState("")
   const [is_checked_1, set_is_checked_1] = React.useState(false)
   const [is_checked_2, set_is_checked_2] = React.useState(false)
+  const [room_is_ready, set_room_is_ready] = React.useState(false)
 
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
@@ -55,6 +56,19 @@ export function Room_Settings({user, set_user}) {
       };
     }
   }, [user, ws])
+
+  React.useEffect(() => {
+    if (players == 2) {
+      set_room_is_ready(true)
+    } else {
+      set_room_is_ready(false)
+      set_is_checked_1(false)
+      set_is_checked_2(false)
+      set_current_guesser("")
+      set_current_word_giver("")
+      set_current_role("")
+    }
+  }, [players])
   
   function change_real_words() {
     if (localStorage.getItem("real_words?") == "true") {
@@ -120,10 +134,6 @@ export function Room_Settings({user, set_user}) {
     console.log("word giver: ", current_word_giver)
   }
 
-  //React.useEffect(() => {
-  //  update_roles()
-  //}, [current_guesser, current_word_giver])
-
   function update_roles(c_g, c_w) {
     if (ws) {
       if (ws.readyState === WebSocket.OPEN) {
@@ -144,13 +154,13 @@ export function Room_Settings({user, set_user}) {
       <h1 className="settings-h1">Room Number: {localStorage.getItem("currentRoomNumber")}</h1>
       <h2 className="settings-h2">Players - {players}/2</h2>
         <div className="form-check">
-          <input onChange={() => toggle_role("guesser", localStorage.getItem("currentUser"))} checked={is_checked_1} disabled={current_role == "word_giver" || (current_guesser != "" && current_guesser != localStorage.getItem("currentUser"))  ? true : false} className="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"></input>
+          <input onChange={() => toggle_role("guesser", localStorage.getItem("currentUser"))} checked={is_checked_1} disabled={(current_role == "word_giver" || (current_guesser != "" && current_guesser != localStorage.getItem("currentUser")) || !room_is_ready)  ? true : false} className="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"></input>
           <label className="form-check-label">
             Guesser: {current_guesser}
           </label>
         </div>
         <div className="form-check">
-          <input onChange={() => toggle_role("word_giver", localStorage.getItem("currentUser"))} checked={is_checked_2} disabled={current_role == "guesser" || (current_word_giver != "" && current_word_giver != localStorage.getItem("currentUser"))  ? true : false} className="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2"></input>
+          <input onChange={() => toggle_role("word_giver", localStorage.getItem("currentUser"))} checked={is_checked_2} disabled={(current_role == "guesser" || (current_word_giver != "" && current_word_giver != localStorage.getItem("currentUser")) || !room_is_ready)  ? true : false} className="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2"></input>
           <label className="form-check-label">
             Word-giver: {current_word_giver}
           </label>
@@ -159,7 +169,7 @@ export function Room_Settings({user, set_user}) {
           <input onClick={() => handle_button_click("change_real_words")} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
-        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={players == 2 ? false : true}>Start!</button>
+        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={room_is_ready ? false : true}>Start!</button>
       </div>
     </main>
   );

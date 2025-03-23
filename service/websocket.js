@@ -39,6 +39,9 @@ function room_handler(httpServer) {
             }
 
             if (type === 'get_players') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
                 if (rooms[room].length >= 1) {
                     rooms[room].forEach((client) => {
                         client.send(JSON.stringify({ type: 'players', message: rooms[room].length }));
@@ -47,10 +50,22 @@ function room_handler(httpServer) {
             }
 
             if (type === 'update_roles') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
                         client.send(JSON.stringify({ type: 'roles', message: { guesser: guesser, word_giver: word_giver } }));
                     });
+                }
+            }
+
+            if (type === 'leave_room') {
+                for (const room in rooms) {
+                    rooms[room] = rooms[room].filter((client) => client !== ws);
+                    if (rooms[room].length === 0) {
+                        delete rooms[room];
+                    }
                 }
             }
         });
@@ -58,7 +73,7 @@ function room_handler(httpServer) {
         ws.on('close', () => {
             const pos = connections.findIndex((o, i) => o.id === connection.id);
             if (pos >= 0) {
-            connections.splice(pos, 1);
+                connections.splice(pos, 1);
             }
 
             for (const room in rooms) {
