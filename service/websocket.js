@@ -108,6 +108,26 @@ function room_handler(httpServer) {
                     });
                 }
             }
+            if (type === 'scores') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
+                if (rooms[room].length === 2) {
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'to_scores', message: true }));
+                    });
+                }
+            }
+            if (type === 'play_again') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
+                if (rooms[room].length === 2) {
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'playing_again', message: true }));
+                    });
+                }
+            }
         });
 
         ws.on('close', () => {

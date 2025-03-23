@@ -26,6 +26,9 @@ export function Room_Settings({user, set_user}) {
     }
   }
   React.useEffect(() => {
+    localStorage.setItem("guesser", "")
+    localStorage.setItem("word_giver", "")
+    localStorage.setItem("the_word", "")
     check_auth().then((verified) => {if(!verified){navigate('/')}
     localStorage.setItem("real_words?", "false")
     set_user(localStorage.getItem('currentUser'))
@@ -53,7 +56,6 @@ export function Room_Settings({user, set_user}) {
           change_real_words()
         }
         if (data.type === 'start') {
-          console.log(current_guesser, current_word_giver)
           localStorage.setItem("guesser", data.message.guesser)
           localStorage.setItem("word_giver", data.message.word_giver)
           navigate('/input_word')
@@ -91,7 +93,6 @@ export function Room_Settings({user, set_user}) {
   function handle_button_click(type) {
     button_click()
     if (type == "navigate") {
-      console.log("First", current_guesser, current_word_giver)
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
           type: 'start_game',  

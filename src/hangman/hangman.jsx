@@ -38,9 +38,12 @@ export function Hangman({user}) {
         lose_sfx()
         set_lose(true)
       }
+      if (localStorage.getItem("guesser") == localStorage.getItem("currentUser")) {
+        handle_scores(game_data.score_1, " (Guesser)")
+      } else {
+        handle_scores(game_data.score_2, " (Word-giver)")
+      }
       
-      handle_scores(game_data.score_1, " (Guesser)")
-      handle_scores(game_data.score_2, " (Word-giver)")
     } else if (game_data.incorrect_guesses.length >= 9) {
       if (is_guessing) {
         lose_sfx()
@@ -49,8 +52,11 @@ export function Hangman({user}) {
         win_sfx()
         set_win(true)
       }
-      handle_scores(game_data.score_1, " (Guesser)")
-      handle_scores(game_data.score_2, " (Word-giver)")
+      if (localStorage.getItem("guesser") == localStorage.getItem("currentUser")) {
+        handle_scores(game_data.score_1, " (Guesser)")
+      } else {
+        handle_scores(game_data.score_2, " (Word-giver)")
+      }
     }
     
   }, [game_data.the_hidden_word, game_data.incorrect_guesses])
@@ -85,19 +91,26 @@ export function Hangman({user}) {
       if (data.type === 'return_guess') {
         handle_correct_guess(data.message)
       }
+      if (data.type === 'playing_again') {
+        navigate('/room_settings')
+      }
+      if (data.type === 'to_scores') {
+        navigate('/scores')
+      }
     }
   }
   }, [user, ws])
 
   async function handle_scores(score, role) {
+    let user = ""
+    let new_score = 0
     if (role == " (Guesser)") {
-      let user = localStorage.getItem("guesser") + role
-      const new_score = { name: user, score: score};
+      user = localStorage.getItem("guesser") + role
+      new_score = { name: user, score: score};
     } else {
-      let user = localStorage.getItem("word_giver") + role
-      const new_score = { name: user, score: score};
+      user = localStorage.getItem("word_giver") + role
+      new_score = { name: user, score: score};
     }
-    
     await fetch('/api/score', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -112,7 +125,6 @@ export function Hangman({user}) {
         if (the_word.length - prev.correct_guesses.length > 1) {
           correct_guess_sfx();
         }
-        console.log(new_word)
         return {
           ...prev,
           correct_guesses: prev.correct_guesses.concat(guess),
@@ -153,12 +165,10 @@ export function Hangman({user}) {
   function handle_correct_guess(letter) {
     let previous_word = game_data.the_hidden_word
     let new_word = find_all_letters(letter, 0, previous_word)
-    //console.log(previous_word, new_word)
     if (previous_word == new_word) {
       log_guess(letter, false, new_word)
     } else {
       log_guess(letter, true, new_word)
-      console.log(game_data.the_hidden_word)
     }
   }
 
@@ -195,9 +205,19 @@ export function Hangman({user}) {
   function button_navigate(type) {
     button_click()
     if (type == "room_settings") {
-      navigate('/room_settings')
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'play_again',
+          room: localStorage.getItem('currentRoomNumber'),
+        }));
+      }
     } else if (type == "scores") {
-      navigate('/scores')
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'scores',
+          room: localStorage.getItem('currentRoomNumber'),
+        }));
+      }
     }
   }
 

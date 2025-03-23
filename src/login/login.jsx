@@ -20,7 +20,6 @@ export function Login({user}) {
       const leave_info = JSON.stringify({
         type: 'leave_room',
       });
-      console.log("a player has left")
       try {
         ws.send(leave_info);
         ws.send(JSON.stringify({
