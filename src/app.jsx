@@ -41,7 +41,7 @@ export default function App() {
                         {user != null && (<button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button>)}
                     </header>
                     <Routes>
-                        <Route path='/' element={<Login />} exact />
+                        <Route path='/' element={<Login user = {user} />} exact />
                         <Route path='/hangman' element={<Hangman user = {user} />} />
                         <Route path='/scores' element={<Scores user = {user} />} />
                         <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user}/>} />

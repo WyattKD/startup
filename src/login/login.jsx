@@ -4,11 +4,12 @@ import './login.css';
 import {useSound} from 'use-sound'
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Login() {
+export function Login({user}) {
   const [login_form, set_login_form] = React.useState({username:'', password:'', roomNumber:''})
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
   const navigate = useNavigate();
+  const [logged_in, set_logged_in] = React.useState(false)
   const ws = useWebSocket();
   React.useEffect(() => {
     set_error_message("Enter the same room number as your friend!")
@@ -30,7 +31,16 @@ export function Login() {
       }
     }
   }, [])
+  async function check_auth() {
+    const response = await fetch('/api/auth/verify')
+    if (response?.status === 401) {
+        return false
+    } else {
+        return true
+    }
+  }
   React.useEffect(() => {
+    check_auth().then((verified) => {set_logged_in(verified)})
     if (ws) {
       ws.onopen = () => {
         set_error_message("Enter the same room number as your friend!")
@@ -44,9 +54,13 @@ export function Login() {
       set_error_message("Error: Connection failed, try refreshing the page.")
     }
 
-  }, [ws]);
+  }, [ws, user]);
   async function login() {
-    if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
+    if (logged_in && login_form.roomNumber != "") {
+      localStorage.setItem("currentRoomNumber", login_form.roomNumber)
+      join_room(login_form.roomNumber, localStorage.getItem("currentUser"))
+      navigate('/room_settings')
+    } else if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
       set_error_message("Error: Please fill out all fields!")
     } else {
       const response = await fetch(`/api/auth/login`, {
@@ -122,17 +136,17 @@ export function Login() {
       <h2 className="login-h2">with a friend!</h2>
         <div className="mb-3">
           <label className="login-label">Username: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder="Enter your username" ></input>
+          <input disabled={logged_in ? true : false} autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder={logged_in ? "You are logged in!" : "Enter your username"} ></input>
         </div>
           <label className="login-label">Password: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder="Enter your password"></input>
+          <input disabled={logged_in ? true : false} autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder={logged_in ? "You are logged in!" : "Enter your password"}></input>
         <div className="mb-3">
           <label className="login-label">Room Number: </label>
           <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
         </div>
         <div className="form-text" id="basic-addon4">{error_message}</div>
-        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">Login</button>
-        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-secondary signup-button">Sign Up</button>
+        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">{logged_in ? "Go!" : "Login"}</button>
+        {!logged_in && <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-secondary signup-button">Sign Up</button>}
         <img alt="Hangman-dance" className="gif-right" src={"stickman-dance.gif"}></img>
         <img alt="Hangman-dance" className="gif-left" src={"stickman-dance.gif"}></img>
     </div>

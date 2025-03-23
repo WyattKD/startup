@@ -43,7 +43,6 @@ export function Room_Settings({user, set_user}) {
       };
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log('Message from server:', data);
 
         if (data.type === 'players') {
           setPlayers(data.message);
@@ -151,8 +150,6 @@ export function Room_Settings({user, set_user}) {
         update_roles(current_guesser, user)
       }
     }
-    console.log("guesser: ", current_guesser)
-    console.log("word giver: ", current_word_giver)
   }
 
   function update_roles(c_g, c_w) {
