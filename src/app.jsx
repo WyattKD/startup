@@ -1,3 +1,14 @@
+/*
+STUFF TO ADD:
+revamp score system
+more error handling (nav issues)
+invalid input sfx
+comment and organize code
+alert/notif system
+stickman for you and friend?
+mute button
+prevent 3 or more users from joining
+*/
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
