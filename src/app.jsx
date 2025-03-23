@@ -27,8 +27,6 @@ export default function App() {
           method: 'delete',
         }).finally(() => {
           set_user(null)
-          localStorage.removeItem("currentUser")
-          localStorage.removeItem("currentRoomNumber")
         });
     }
 

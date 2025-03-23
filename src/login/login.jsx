@@ -16,21 +16,15 @@ export function Login({user}) {
     if (ws) {
       const leave_info = JSON.stringify({
         type: 'leave_room',
-        room: "",
-        player: "",
-        guess: "",
-        word_giver: "",
       });
+      console.log("a player has left")
       ws.send(leave_info);
-      if (localStorage.getItem("currentUser") != null) {
-        ws.send(JSON.stringify({
-          type: 'get_players',  
-          room: localStorage.getItem('currentRoomNumber'),
-          player: "",
-        }));
-      }
+      ws.send(JSON.stringify({
+        type: 'get_players',  
+        room: localStorage.getItem('currentRoomNumber'),
+      }));
     }
-  }, [])
+  }, [user])
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {

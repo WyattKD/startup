@@ -35,7 +35,6 @@ export function Room_Settings({user, set_user}) {
         ws.send(JSON.stringify({
           type: 'get_players',  
           room: localStorage.getItem('currentRoomNumber'),
-          player: localStorage.getItem('currentUser')
         }));
       }
       ws.onopen = () => {
