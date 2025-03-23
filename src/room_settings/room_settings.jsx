@@ -54,6 +54,9 @@ export function Room_Settings({user, set_user}) {
         if (data.type === 'real_words') {
           change_real_words()
         }
+        if (data.type === 'start') {
+          navigate('/input_word')
+        }
       };
       ws.onclose = () => {
         navigate('/')
@@ -87,16 +90,19 @@ export function Room_Settings({user, set_user}) {
   function handle_button_click(type) {
     button_click()
     if (type == "navigate") {
-      navigate('/input_word')
+      localStorage.setItem("guesser", current_guesser)
+      localStorage.setItem("word_giver", current_word_giver)
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'start_game',  
+          room: localStorage.getItem('currentRoomNumber'),
+        }));
+      }
     } else if (type == "change_real_words") {
       if (ws.readyState === WebSocket.OPEN) {
-        console.log("message SENT")
         ws.send(JSON.stringify({
           type: 'change_real_words',  
           room: localStorage.getItem('currentRoomNumber'),
-          player: localStorage.getItem('currentUser'),
-          guesser: current_guesser,
-          word_giver: current_word_giver
         }));
       }
     }
@@ -184,7 +190,7 @@ export function Room_Settings({user, set_user}) {
           <input onChange={() => handle_button_click("change_real_words")} checked={is_checked_3} disabled={room_is_ready ? false : true} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
-        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={room_is_ready ? false : true}>Start!</button>
+        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={!room_is_ready || current_guesser == "" || current_word_giver == "" ? true : false}>Start!</button>
       </div>
     </main>
   );

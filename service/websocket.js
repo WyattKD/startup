@@ -30,12 +30,6 @@ function room_handler(httpServer) {
                     rooms[room].push(ws);
                     console.log(`Player ${player} joined room ${room}`);
                 }
-
-                if (rooms[room].length === 2) {
-                    rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'start', message: 'Game starting!' }));
-                    });
-                }
             }
 
             if (type === 'get_players') {
@@ -75,9 +69,19 @@ function room_handler(httpServer) {
                     rooms[room] = [];
                 }
                 if (rooms[room].length === 2) {
-                    console.log('message SENT');
                     rooms[room].forEach((client) => {
                         client.send(JSON.stringify({ type: 'real_words', message: true }));
+                    });
+                }
+            }
+
+            if (type === 'start_game') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
+                if (rooms[room].length === 2) {
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'start', message: true }));
                     });
                 }
             }
