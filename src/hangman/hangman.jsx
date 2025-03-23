@@ -11,6 +11,7 @@ export function Hangman({user}) {
   const [win, set_win] = React.useState(false)
   const [lose, set_lose] = React.useState(false)
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+  const [sfx_to_play, set_sfx_to_play] = React.useState("c")
   
   const ws = useWebSocket();
   let is_guessing = localStorage.getItem("guesser") == localStorage.getItem("currentUser") ? true : false
@@ -103,8 +104,18 @@ export function Hangman({user}) {
       navigate('/')
     };
   }
-  }, [user, ws])
+}, [user, ws])
 
+  React.useEffect(() => {
+    if (sfx_to_play == "c" ) {
+      correct_guess_sfx()
+    } else if (sfx_to_play == "i") {
+      incorrect_guess_sfx()
+    }
+    if (sfx_to_play != "") {
+      set_sfx_to_play("")
+    }
+  }, [sfx_to_play])
   async function handle_scores(score, role) {
     let user = ""
     let new_score = 0
@@ -127,7 +138,7 @@ export function Hangman({user}) {
     set_game_data((prev) => {
       if (correct) {
         if (the_word.length - prev.correct_guesses.length > 1) {
-          correct_guess_sfx();
+          set_sfx_to_play("c")
         }
         return {
           ...prev,
@@ -137,7 +148,7 @@ export function Hangman({user}) {
         };
       } else {
         if (prev.incorrect_guesses.length < 8) {
-          incorrect_guess_sfx();
+          set_sfx_to_play("i")
         }
         return {
           ...prev,
