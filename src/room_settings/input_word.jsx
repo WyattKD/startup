@@ -56,9 +56,9 @@ export function Input_Word({user}) {
       <div className="word-box">
       
         <div className="mb-3">
-          <h1 className="word-h1">Enter Word: </h1>
-          <input autoComplete="off" onKeyDown={e => submit_real_word(e.key, e)} onChange={e => {set_the_word(e.target.value.trim()); set_input_text(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" value={input_text} placeholder={valid_word ? "" : "Not a valid word!"}></input>
-          <button onClick={e => button_submit(e)} type="submit" className="btn btn-danger word-button">Confirm</button>
+          <h1 className="word-h1">{localStorage.getItem("currentUser") == localStorage.getItem("word_giver") ? "Enter Word:" : `${localStorage.getItem("word_giver")} is picking a word!`} </h1>
+          <input disabled={localStorage.getItem("currentUser") == localStorage.getItem("word_giver") ? false : true} autoComplete="off" onKeyDown={e => submit_real_word(e.key, e)} onChange={e => {set_the_word(e.target.value.trim()); set_input_text(e.target.value)}} type="text" className="form-control word-input" id="exampleFormControlInput2" maxLength="30" value={input_text} placeholder={valid_word ? "" : "Not a valid word!"}></input>
+          <button disabled={localStorage.getItem("currentUser") == localStorage.getItem("word_giver") ? false : true} onClick={e => button_submit(e)} type="submit" className="btn btn-danger word-button">Confirm</button>
         </div>
       </div>
     </main>
