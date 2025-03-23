@@ -31,13 +31,24 @@ export function Hangman({user}) {
 
   React.useEffect(() => {
     if (game_data.the_hidden_word.indexOf("_") == -1) {
-      win_sfx()
-      set_win(true)
+      if (is_guessing) {
+        win_sfx()
+        set_win(true)
+      } else {
+        lose_sfx()
+        set_lose(true)
+      }
+      
       handle_scores(game_data.score_1, " (Guesser)")
       handle_scores(game_data.score_2, " (Word-giver)")
     } else if (game_data.incorrect_guesses.length >= 9) {
-      lose_sfx()
-      set_lose(true)
+      if (is_guessing) {
+        lose_sfx()
+        set_lose(true)
+      } else {
+        win_sfx()
+        set_win(true)
+      }
       handle_scores(game_data.score_1, " (Guesser)")
       handle_scores(game_data.score_2, " (Word-giver)")
     }
@@ -71,15 +82,22 @@ export function Hangman({user}) {
       if (data.type === 'players' && data.message < 2) {
         navigate('/room_settings')
       }
-
+      if (data.type === 'return_guess') {
+        handle_correct_guess(data.message)
+      }
     }
   }
   }, [user, ws])
 
   async function handle_scores(score, role) {
-    let user = localStorage.getItem("currentUser") + role
-    const new_score = { name: user, score: score};
-
+    if (role == " (Guesser)") {
+      let user = localStorage.getItem("guesser") + role
+      const new_score = { name: user, score: score};
+    } else {
+      let user = localStorage.getItem("word_giver") + role
+      const new_score = { name: user, score: score};
+    }
+    
     await fetch('/api/score', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -89,17 +107,30 @@ export function Hangman({user}) {
 
 
   function log_guess(guess, correct, new_word) {
-    if (correct) {
-      if (the_word.length - game_data.correct_guesses.length > 1) {
-        correct_guess_sfx()
+    set_game_data((prev) => {
+      if (correct) {
+        if (the_word.length - prev.correct_guesses.length > 1) {
+          correct_guess_sfx();
+        }
+        console.log(new_word)
+        return {
+          ...prev,
+          correct_guesses: prev.correct_guesses.concat(guess),
+          score_1: prev.score_1 + 50,
+          the_hidden_word: find_all_letters(guess, 0, prev.the_hidden_word)
+        };
+      } else {
+        if (prev.incorrect_guesses.length < 8) {
+          incorrect_guess_sfx();
+        }
+        return {
+          ...prev,
+          incorrect_guesses: prev.incorrect_guesses.concat(guess+ ", "),
+          score_2: prev.score_2 + 50,
+          the_hidden_word: find_all_letters(guess, 0, prev.the_hidden_word)
+        };
       }
-      set_game_data({...game_data, correct_guesses: game_data.correct_guesses.concat([guess]), score_1: game_data.score_1 + 50, the_hidden_word: new_word})
-    } else {
-      if (game_data.incorrect_guesses.length < 8) {
-        incorrect_guess_sfx()
-      }
-      set_game_data({...game_data, incorrect_guesses: game_data.incorrect_guesses.concat([guess + ", "]), score_2: game_data.score_2 + 50, the_hidden_word: new_word})
-    }
+    });
   }
 
   function guess(event) {
@@ -112,15 +143,33 @@ export function Hangman({user}) {
         event.target.value = ""
         event.target.placeholder = "You've already guessed that letter!"
       } else {
-        let previous_word = game_data.the_hidden_word
-        let new_word = find_all_letters(letter, 0, previous_word)
-        if (previous_word == new_word) {
-          log_guess(letter, false, new_word)
-        } else {
-          log_guess(letter, true, new_word)
-        }
+        send_letter(letter)
         event.target.value = ""
         event.target.placeholder = "Enter your guess!"
+      }
+    }
+  }
+
+  function handle_correct_guess(letter) {
+    let previous_word = game_data.the_hidden_word
+    let new_word = find_all_letters(letter, 0, previous_word)
+    //console.log(previous_word, new_word)
+    if (previous_word == new_word) {
+      log_guess(letter, false, new_word)
+    } else {
+      log_guess(letter, true, new_word)
+      console.log(game_data.the_hidden_word)
+    }
+  }
+
+  function send_letter(letter) {
+    if (ws) {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'guess',
+          room: localStorage.getItem('currentRoomNumber'),
+          letter: letter, 
+        }));
       }
     }
   }
@@ -168,7 +217,7 @@ export function Hangman({user}) {
         <div style={{display: lose ? 'inline-block' : 'none'}} className="alert alert-danger hangman-lose" role="alert">
         <div className="mb-3">
             <h1 className="hm-h1">You lose! </h1>
-            <h2 className="hm-h2">The word was "{the_word}" </h2>
+            <h2 className="hm-h2">{is_guessing ? `The word was "${the_word}" ` : `${localStorage.getItem("guesser")} guessed your word!`}</h2>
             <button onClick={() => button_navigate("room_settings")} type="submit" className="btn btn-danger hm-button">Play Again</button>
             <button onClick={() => button_navigate("scores")} type="submit" className="btn btn-danger hm-button">High Scores</button>
           </div>
@@ -182,8 +231,8 @@ export function Hangman({user}) {
             </ul>
           </div>
           <div className="col">
-            <img alt="Hangman" className="hm-img" src={win ? "hangman0.png" : "hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
-            {win && <img alt="Hangman-dance" className="win-gif" src={"stickman-dance.gif"}></img>}
+            <img alt="Hangman" className="hm-img" src={win && is_guessing ? "hangman0.png" : "hangman" + game_data.incorrect_guesses.length + ".png"} width="250px"></img>
+            {(win && is_guessing) && <img alt="Hangman-dance" className="win-gif" src={"stickman-dance.gif"}></img>}
           </div>
           <div className="col">
             <h3 className="incorrect-guess-label">Incorrect Guesses:</h3>
