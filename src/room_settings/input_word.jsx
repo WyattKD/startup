@@ -44,6 +44,9 @@ export function Input_Word({user}) {
           navigate('/hangman')
         }
       }
+      ws.onclose = () => {
+        navigate('/')
+      };
     }
   
   }, [ws, user])

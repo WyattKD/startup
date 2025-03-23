@@ -4,6 +4,7 @@ import './hangman.css';
 import { useSound } from 'use-sound';
 import { useWebSocket } from '../WebSocketContext.jsx';
 
+
 export function Hangman({user}) {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
   const the_word = localStorage.getItem("the_word").toLocaleLowerCase()
@@ -98,6 +99,9 @@ export function Hangman({user}) {
         navigate('/scores')
       }
     }
+    ws.onclose = () => {
+      navigate('/')
+    };
   }
   }, [user, ws])
 

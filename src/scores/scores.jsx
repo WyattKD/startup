@@ -2,12 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './scores.css';
 import {useSound} from 'use-sound'
+import { useWebSocket } from '../WebSocketContext.jsx';
 
 export function Scores({user}) {
   const [scores, set_scores] = React.useState([]);
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 
   const navigate = useNavigate();
+
+  const ws = useWebSocket();
   
 
   async function check_auth() {
@@ -28,7 +31,30 @@ export function Scores({user}) {
     });
     
   })
-  }, [user])
+  if (ws) {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'get_players',  
+        room: localStorage.getItem('currentRoomNumber'),
+      }));
+    }
+    ws.onopen = () => {
+      navigate('/')
+    };
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'players' && data.message < 2) {
+        navigate('/room_settings')
+      }
+      if (data.type === 'playing_again') {
+        navigate('/room_settings')
+      }
+    };
+    ws.onclose = () => {
+      navigate('/')
+    };
+  }
+  }, [ws, user])
 
   const score_rows = [];
   if (scores.length) {
@@ -50,7 +76,12 @@ export function Scores({user}) {
   }
   function button_navigate() {
     button_click()
-    navigate('/room_settings')
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'play_again',
+        room: localStorage.getItem('currentRoomNumber'),
+      }));
+    }
   }
 
   return (
