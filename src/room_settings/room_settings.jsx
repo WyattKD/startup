@@ -14,6 +14,7 @@ export function Room_Settings({user, set_user}) {
   const [current_word_giver, set_current_word_giver] = React.useState("")
   const [is_checked_1, set_is_checked_1] = React.useState(false)
   const [is_checked_2, set_is_checked_2] = React.useState(false)
+  const [is_checked_3, set_is_checked_3] = React.useState(false)
   const [room_is_ready, set_room_is_ready] = React.useState(false)
 
   async function check_auth() {
@@ -50,6 +51,9 @@ export function Room_Settings({user, set_user}) {
         if (data.type === 'roles') {
           handle_roles(data.message.guesser, data.message.word_giver)
         }
+        if (data.type === 'real_words') {
+          change_real_words()
+        }
       };
       ws.onclose = () => {
         navigate('/')
@@ -73,8 +77,10 @@ export function Room_Settings({user, set_user}) {
   function change_real_words() {
     if (localStorage.getItem("real_words?") == "true") {
       localStorage.setItem("real_words?", "false")
+      set_is_checked_3(false)
     } else {
       localStorage.setItem("real_words?", "true")
+      set_is_checked_3(true)
     }
   }
 
@@ -83,7 +89,16 @@ export function Room_Settings({user, set_user}) {
     if (type == "navigate") {
       navigate('/input_word')
     } else if (type == "change_real_words") {
-      change_real_words()
+      if (ws.readyState === WebSocket.OPEN) {
+        console.log("message SENT")
+        ws.send(JSON.stringify({
+          type: 'change_real_words',  
+          room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser'),
+          guesser: current_guesser,
+          word_giver: current_word_giver
+        }));
+      }
     }
   }
 
@@ -166,7 +181,7 @@ export function Room_Settings({user, set_user}) {
           </label>
         </div>
         <div className="form-check form-switch">
-          <input onClick={() => handle_button_click("change_real_words")} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
+          <input onChange={() => handle_button_click("change_real_words")} checked={is_checked_3} disabled={room_is_ready ? false : true} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
         <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={room_is_ready ? false : true}>Start!</button>

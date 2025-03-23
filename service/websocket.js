@@ -68,6 +68,19 @@ function room_handler(httpServer) {
                     }
                 }
             }
+
+            if (type === 'change_real_words') {
+                
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
+                if (rooms[room].length === 2) {
+                    console.log('message SENT');
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'real_words', message: true }));
+                    });
+                }
+            }
         });
 
         ws.on('close', () => {
