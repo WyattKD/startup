@@ -35,9 +35,14 @@ export function Input_Word({user}) {
         }));
       }
       ws.onmessage = (event) => {
+        console.log(event.data)
         const data = JSON.parse(event.data);
         if (data.type === 'players' && data.message < 2) {
           navigate(-1)
+        }
+        if (data.type === 'word_submitted') {
+          localStorage.setItem("the_word", data.message)
+          navigate('/hangman')
         }
       }
     }
@@ -64,8 +69,13 @@ export function Input_Word({user}) {
 
   function submit_word(key="Enter", event=null, invalid_word=false) {
     if (key == "Enter" && the_word != "" && /^[a-zA-Z]+$/.test(the_word)) {
-      localStorage.setItem("the_word", the_word)
-      navigate('/hangman')
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'submit_word',
+          room: localStorage.getItem('currentRoomNumber'),
+          the_word: the_word,  
+        }));
+      }
     } else if (key == "Enter" || invalid_word) {
       event.target.value = ""
       set_valid_word(false)

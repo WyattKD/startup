@@ -12,6 +12,9 @@ export function Login({user}) {
   const [logged_in, set_logged_in] = React.useState(false)
   const ws = useWebSocket();
   React.useEffect(() => {
+    localStorage.setItem("guesser", "")
+    localStorage.setItem("word_giver", "")
+    localStorage.setItem("the_word", "")
     set_error_message("Enter the same room number as your friend!")
     if (ws) {
       const leave_info = JSON.stringify({
@@ -67,7 +70,6 @@ export function Login({user}) {
       if (response?.status === 200) {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
-        localStorage.setItem("scores", "")
         join_room(login_form.roomNumber, login_form.username)
         navigate('/room_settings')
       } else if (response?.status === 401) {
@@ -92,7 +94,6 @@ export function Login({user}) {
       if (response?.status === 200) {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
-        localStorage.setItem("scores", "")
         join_room(login_form.roomNumber, login_form.username)
         navigate('/room_settings')
       } else if(response?.status === 409) {
