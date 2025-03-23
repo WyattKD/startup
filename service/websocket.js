@@ -19,7 +19,7 @@ function room_handler(httpServer) {
 
         ws.on('message', (message) => {
             const data = JSON.parse(message);
-            const { type, room, player } = data;
+            const { type, room, player, guesser, word_giver } = data;
 
             if (type === 'join') {
                 if (!rooms[room]) {
@@ -46,12 +46,12 @@ function room_handler(httpServer) {
                 }
             }
 
-            if (type === 'message') {
-                rooms[room].forEach((client) => {
-                    if (client !== ws) {
-                        client.send(JSON.stringify({ type: 'message', player, message: data.message }));
-                    }
-                });
+            if (type === 'update_roles') {
+                if (rooms[room].length === 2) {
+                    rooms[room].forEach((client) => {
+                        client.send(JSON.stringify({ type: 'roles', message: { guesser: guesser, word_giver: word_giver } }));
+                    });
+                }
             }
         });
 

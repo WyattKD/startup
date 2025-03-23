@@ -72,6 +72,8 @@ export function Login() {
         type: 'join',
         room: room,
         player: player,
+        guess: "",
+        word_giver: "",
     });
     ws.send(join_info);
   } 
