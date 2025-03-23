@@ -35,10 +35,9 @@ export function Input_Word({user}) {
         }));
       }
       ws.onmessage = (event) => {
-        console.log(event.data)
         const data = JSON.parse(event.data);
         if (data.type === 'players' && data.message < 2) {
-          navigate(-1)
+          navigate('/room_settings')
         }
         if (data.type === 'word_submitted') {
           localStorage.setItem("the_word", data.message)

@@ -21,17 +21,23 @@ export function Login({user}) {
         type: 'leave_room',
       });
       console.log("a player has left")
-      ws.send(leave_info);
-      ws.send(JSON.stringify({
-        type: 'get_players',  
-        room: localStorage.getItem('currentRoomNumber'),
-      }));
+      try {
+        ws.send(leave_info);
+        ws.send(JSON.stringify({
+          type: 'get_players',  
+          room: localStorage.getItem('currentRoomNumber'),
+        }));
+    } catch (error) {
+      set_error_message("Error: Connection failed, try refreshing the page.")
+    }
     }
   }, [user])
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {
         return false
+    } else if (response?.status === 500) {
+      set_error_message("Error: Connection failed, try refreshing the page.")
     } else {
         return true
     }

@@ -53,6 +53,9 @@ export function Room_Settings({user, set_user}) {
           change_real_words()
         }
         if (data.type === 'start') {
+          console.log(current_guesser, current_word_giver)
+          localStorage.setItem("guesser", data.message.guesser)
+          localStorage.setItem("word_giver", data.message.word_giver)
           navigate('/input_word')
         }
       };
@@ -88,12 +91,13 @@ export function Room_Settings({user, set_user}) {
   function handle_button_click(type) {
     button_click()
     if (type == "navigate") {
-      localStorage.setItem("guesser", current_guesser)
-      localStorage.setItem("word_giver", current_word_giver)
+      console.log("First", current_guesser, current_word_giver)
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
           type: 'start_game',  
           room: localStorage.getItem('currentRoomNumber'),
+          guesser: current_guesser,
+          word_giver: current_word_giver
         }));
       }
     } else if (type == "change_real_words") {

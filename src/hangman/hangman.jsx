@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './hangman.css';
 import { useSound } from 'use-sound';
+import { useWebSocket } from '../WebSocketContext.jsx';
 
 export function Hangman({user}) {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
@@ -9,6 +10,9 @@ export function Hangman({user}) {
   const [win, set_win] = React.useState(false)
   const [lose, set_lose] = React.useState(false)
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+  
+  const ws = useWebSocket();
+  let is_guessing = localStorage.getItem("guesser") == localStorage.getItem("currentUser") ? true : false
 
   const [correct_guess_sfx] = useSound('chaching.mp4');
   const [incorrect_guess_sfx] = useSound('ahhdangit.mp4');
@@ -16,6 +20,8 @@ export function Hangman({user}) {
   const [lose_sfx] = useSound('wawawaaa.mp4');
 
   const navigate = useNavigate();
+
+
   const z = React.useMemo(() => {
     for (let i = 0; i < the_word.length; i++) {
       set_game_data({...game_data, the_hidden_word: game_data.the_hidden_word += "_ "})
@@ -49,7 +55,26 @@ export function Hangman({user}) {
   React.useEffect(() => {
     check_auth().then((verified) => {if(!verified){navigate('/')}
   })
-  }, [user])
+  if (ws) {
+    ws.onopen = () => {
+      navigate('/')
+    };
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'get_players',  
+        room: localStorage.getItem('currentRoomNumber'),
+        player: localStorage.getItem('currentUser')
+      }));
+    }
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'players' && data.message < 2) {
+        navigate('/room_settings')
+      }
+
+    }
+  }
+  }, [user, ws])
 
   async function handle_scores(score, role) {
     let user = localStorage.getItem("currentUser") + role
@@ -152,8 +177,8 @@ export function Hangman({user}) {
           <div className="col">
             <h3 className="players-label">Players:</h3>
             <ul>
-              <li className="hm-li">(Guesser) {localStorage.getItem("currentUser")}: {game_data.score_1}</li>
-              <li className="hm-li">(Word-giver) {localStorage.getItem("currentUser")}: {game_data.score_2}</li>
+              <li className="hm-li">(Guesser) {localStorage.getItem("guesser")}: {game_data.score_1}</li>
+              <li className="hm-li">(Word-giver) {localStorage.getItem("word_giver")}: {game_data.score_2}</li>
             </ul>
           </div>
           <div className="col">
@@ -170,7 +195,7 @@ export function Hangman({user}) {
         </div>
         <div className="row">
           <label className="guess-label">Guess: </label>
-          <input autoComplete="off" autoFocus type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)} disabled={lose || win ? true : false}></input>
+          <input autoComplete="off" autoFocus type="text" className="form-control guess-input" id="exampleFormControlInput1" placeholder="Enter your guess!" maxLength="1" onKeyDown={e => guess(e)} disabled={lose || win || !is_guessing ? true : false}></input>
         </div>
       </div>
     </div>

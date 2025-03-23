@@ -81,7 +81,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'start', message: true }));
+                        client.send(JSON.stringify({ type: 'start', message: { guesser: guesser, word_giver: word_giver } }));
                     });
                 }
             }
