@@ -11,6 +11,7 @@ export function Login() {
   const navigate = useNavigate();
   const ws = useWebSocket();
   React.useEffect(() => {
+    set_error_message("Enter the same room number as your friend!")
     if (ws) {
       const leave_info = JSON.stringify({
         type: 'leave_room',
@@ -32,9 +33,17 @@ export function Login() {
   React.useEffect(() => {
     if (ws) {
       ws.onopen = () => {
-        console.log('Connected to WebSocket server');
+        set_error_message("Enter the same room number as your friend!")
       }
     }
+    try {
+      ws.send(JSON.stringify({
+        type: 'test', 
+      }));
+    } catch (error) {
+      set_error_message("Error: Connection failed, try refreshing the page.")
+    }
+
   }, [ws]);
   async function login() {
     if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
@@ -113,17 +122,17 @@ export function Login() {
       <h2 className="login-h2">with a friend!</h2>
         <div className="mb-3">
           <label className="login-label">Username: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder="Enter your username" ></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder="Enter your username" ></input>
         </div>
           <label className="login-label">Password: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {login()}}} onChange={e => {set_login_form({...login_form, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder="Enter your password"></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder="Enter your password"></input>
         <div className="mb-3">
           <label className="login-label">Room Number: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
+          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
         </div>
         <div className="form-text" id="basic-addon4">{error_message}</div>
-        <button onClick={() => handle_button_click("login")} type="login" className="btn btn-primary login-button">Login</button>
-        <button onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-primary signup-button">Sign Up</button>
+        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">Login</button>
+        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-secondary signup-button">Sign Up</button>
         <img alt="Hangman-dance" className="gif-right" src={"stickman-dance.gif"}></img>
         <img alt="Hangman-dance" className="gif-left" src={"stickman-dance.gif"}></img>
     </div>

@@ -190,7 +190,7 @@ export function Room_Settings({user, set_user}) {
           <input onChange={() => handle_button_click("change_real_words")} checked={is_checked_3} disabled={room_is_ready ? false : true} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"></input>
           <label className="form-check-label">Real Words Only</label>
         </div>
-        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-danger settings-button" disabled={!room_is_ready || current_guesser == "" || current_word_giver == "" ? true : false}>Start!</button>
+        <button onClick={() => handle_button_click("navigate")} type="submit" className="btn btn-secondary settings-button" disabled={!room_is_ready || current_guesser == "" || current_word_giver == "" ? true : false}>Start!</button>
       </div>
     </main>
   );
