@@ -22,17 +22,26 @@ export function Login({user, set_info_message}) {
         type: 'leave_room',
       });
       try {
+        console.log(localStorage.getItem('currentUser'))
         ws.send(leave_info);
         ws.send(JSON.stringify({
           type: 'get_players',  
           room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser'),
         }));
+        if (localStorage.getItem('currentRoomNumber')) {
+          ws.send(JSON.stringify({
+            type: 'leave_room',  
+            room: localStorage.getItem('currentRoomNumber'),
+          }));
+        }
     } catch (error) {
       set_error_message("Error: Connection failed, try refreshing the page.")
     }
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === 'join_succeeded') {
+        set_info_message(`${localStorage.getItem("currentUser")} has joined the room!`)
         navigate('/room_settings')
       } else if (data.type === 'join_failed') {
         set_error_message("Room is full!")
@@ -70,6 +79,8 @@ export function Login({user, set_info_message}) {
   React.useEffect(() => {
     if (logged_in) {
       set_info_message("Join a room to get started!")
+    } else {
+      set_info_message("Login or sign up to get started!")
     }
   }, [logged_in]);
   async function login() {

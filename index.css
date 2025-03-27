@@ -5,8 +5,7 @@ body, html {
 body {
     background-image: url("/graph-background.jpg");
     background-size: cover;
-    background-color: #efefef;
-    background-blend-mode: lighten;
+    background-color: #ffffff2b;
     padding-top: 0px;
     width: 100%;
     position: absolute;

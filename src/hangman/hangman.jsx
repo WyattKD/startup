@@ -33,6 +33,7 @@ export function Hangman({user, set_info_message}) {
 
   React.useEffect(() => {
     if (game_data.the_hidden_word.indexOf("_") == -1) {
+      set_info_message(`${localStorage.getItem("guesser")} won!`)
       if (is_guessing) {
         win_sfx()
         set_win(true)
@@ -47,6 +48,7 @@ export function Hangman({user, set_info_message}) {
       }
       
     } else if (game_data.incorrect_guesses.length >= 9) {
+      set_info_message(`${localStorage.getItem("word_giver")} won!`)
       if (is_guessing) {
         lose_sfx()
         set_lose(true)
@@ -88,18 +90,22 @@ export function Hangman({user, set_info_message}) {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === 'players' && data.message < 2) {
+        set_info_message("A player left the room!")
         navigate('/room_settings')
       }
       if (data.type === 'return_guess') {
         handle_correct_guess(data.message)
       }
       if (data.type === 'playing_again') {
+        set_info_message(`${data.message} wants to play again!`)
         navigate('/room_settings')
       }
       if (data.type === 'to_scores') {
+        set_info_message(`${data.message} wants to see the high scores!`)
         navigate('/scores')
       }
       if (data.type === 'player_left') {
+        set_info_message("A player left the room!")
         navigate('/room_settings')
       }
     }
@@ -184,8 +190,10 @@ export function Hangman({user, set_info_message}) {
     let previous_word = game_data.the_hidden_word
     let new_word = find_all_letters(letter, 0, previous_word)
     if (previous_word == new_word) {
+      set_info_message(`${localStorage.getItem("word_giver")} scored 50 points!`)
       log_guess(letter, false, new_word)
     } else {
+      set_info_message(`${localStorage.getItem("guesser")} scored 50 points!`)
       log_guess(letter, true, new_word)
     }
   }
@@ -227,6 +235,7 @@ export function Hangman({user, set_info_message}) {
         ws.send(JSON.stringify({
           type: 'play_again',
           room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser')
         }));
       }
     } else if (type == "scores") {
@@ -234,6 +243,7 @@ export function Hangman({user, set_info_message}) {
         ws.send(JSON.stringify({
           type: 'scores',
           room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser')
         }));
       }
     }

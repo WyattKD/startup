@@ -44,12 +44,15 @@ export function Scores({user, set_info_message}) {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === 'players' && data.message < 2) {
+        set_info_message("A player left the room!")
         navigate('/room_settings')
       }
       if (data.type === 'playing_again') {
+        set_info_message(`${data.message} wants to play again!`)
         navigate('/room_settings')
       }
       if (data.type === 'player_left') {
+        set_info_message("A player left the room!")
         navigate('/room_settings')
       }
     };
@@ -83,6 +86,7 @@ export function Scores({user, set_info_message}) {
       ws.send(JSON.stringify({
         type: 'play_again',
         room: localStorage.getItem('currentRoomNumber'),
+        player: localStorage.getItem('currentUser'),
       }));
     }
   }

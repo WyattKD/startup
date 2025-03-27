@@ -41,7 +41,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length >= 1) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'players', message: rooms[room].length }));
+                        client.send(JSON.stringify({ type: 'players', message: {number: rooms[room].length, player: player} }));
                     });
                 }
             }
@@ -62,6 +62,10 @@ function room_handler(httpServer) {
                     rooms[room] = rooms[room].filter((client) => client !== ws);
                     if (rooms[room].length === 0) {
                         delete rooms[room];
+                    } else if (rooms[room].length === 1) {
+                        rooms[room].forEach((client) => {
+                            client.send(JSON.stringify({ type: 'player_left', message: true }));
+                        });
                     }
                 }
             }
@@ -84,7 +88,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'start', message: { guesser: guesser, word_giver: word_giver } }));
+                        client.send(JSON.stringify({ type: 'start', message: { guesser: guesser, word_giver: word_giver, player: player } }));
                     });
                 }
             }
@@ -96,7 +100,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'word_submitted', message: the_word }));
+                        client.send(JSON.stringify({ type: 'word_submitted', message: {word: the_word, player: player}}));
                     });
                 }
             }
@@ -117,7 +121,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'to_scores', message: true }));
+                        client.send(JSON.stringify({ type: 'to_scores', message: player }));
                     });
                 }
             }
@@ -127,7 +131,7 @@ function room_handler(httpServer) {
                 }
                 if (rooms[room].length === 2) {
                     rooms[room].forEach((client) => {
-                        client.send(JSON.stringify({ type: 'playing_again', message: true }));
+                        client.send(JSON.stringify({ type: 'playing_again', message: player }));
                     });
                 }
             }

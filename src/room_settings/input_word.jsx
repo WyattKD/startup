@@ -37,13 +37,16 @@ export function Input_Word({user, set_info_message}) {
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === 'players' && data.message < 2) {
+          set_info_message("A player left the room!")
           navigate('/room_settings')
         }
         if (data.type === 'word_submitted') {
-          localStorage.setItem("the_word", data.message)
+          localStorage.setItem("the_word", data.message.word)
+          set_info_message(`${data.message.player} is guessing...`)
           navigate('/hangman')
         }
         if (data.type === 'player_left') {
+          set_info_message("A player left the room!")
           navigate('/room_settings')
         }
       }
@@ -79,6 +82,7 @@ export function Input_Word({user, set_info_message}) {
           type: 'submit_word',
           room: localStorage.getItem('currentRoomNumber'),
           the_word: the_word,  
+          player: localStorage.getItem("guesser")
         }));
       }
     } else if (key == "Enter" || invalid_word) {

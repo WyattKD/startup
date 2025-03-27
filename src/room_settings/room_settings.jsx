@@ -4,7 +4,7 @@ import './room_settings.css';
 import { useSound } from 'use-sound'
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Room_Settings({user, set_user, set_info_message}) {
+export function Room_Settings({user, set_user, set_info_message, info_message}) {
   const navigate = useNavigate();
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
   const ws = useWebSocket();
@@ -29,15 +29,16 @@ export function Room_Settings({user, set_user, set_info_message}) {
     localStorage.setItem("guesser", "")
     localStorage.setItem("word_giver", "")
     localStorage.setItem("the_word", "")
-    check_auth().then((verified) => {if(!verified){navigate('/')}
     localStorage.setItem("real_words?", "false")
-    set_user(localStorage.getItem('currentUser'))
+    check_auth().then((verified) => {if(!verified){navigate('/')}
+    
     })
     if (ws) {
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
           type: 'get_players',  
           room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser')
         }));
       }
       ws.onopen = () => {
@@ -47,7 +48,12 @@ export function Room_Settings({user, set_user, set_info_message}) {
         const data = JSON.parse(event.data);
 
         if (data.type === 'players') {
-          setPlayers(data.message);
+          console.log(data.message.number, players)
+          if (data.message.player && data.message.number != 1 && info_message.slice(-2) != "n!" && info_message.slice(-2) != "s!") {
+            console.log(info_message.slice(-2))
+            set_info_message(`${data.message.player} has joined the room!`)
+          }
+          setPlayers(data.message.number);
         }
         if (data.type === 'roles') {
           handle_roles(data.message.guesser, data.message.word_giver)
@@ -58,6 +64,7 @@ export function Room_Settings({user, set_user, set_info_message}) {
         if (data.type === 'start') {
           localStorage.setItem("guesser", data.message.guesser)
           localStorage.setItem("word_giver", data.message.word_giver)
+          set_info_message(`${data.message.player} started the game!`)
           navigate('/input_word')
         }
         if (data.type === 'player_left') {
@@ -65,6 +72,7 @@ export function Room_Settings({user, set_user, set_info_message}) {
             type: 'get_players',  
             room: localStorage.getItem('currentRoomNumber'),
           }));
+          set_info_message("A player left the room!")
         }
       };
       ws.onclose = () => {
@@ -85,7 +93,9 @@ export function Room_Settings({user, set_user, set_info_message}) {
       set_current_role("")
     }
   }, [players])
-  
+  React.useEffect(() => {
+    set_user(localStorage.getItem('currentUser'))
+  }, [])
   function change_real_words() {
     if (localStorage.getItem("real_words?") == "true") {
       localStorage.setItem("real_words?", "false")
@@ -103,6 +113,7 @@ export function Room_Settings({user, set_user, set_info_message}) {
         ws.send(JSON.stringify({
           type: 'start_game',  
           room: localStorage.getItem('currentRoomNumber'),
+          player: localStorage.getItem('currentUser'),
           guesser: current_guesser,
           word_giver: current_word_giver
         }));

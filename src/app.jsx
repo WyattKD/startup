@@ -28,7 +28,7 @@ export default function App() {
 
     const [user, set_user] = React.useState(localStorage.getItem('currentUser'))
     const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
-    const [info_message, set_info_message] = React.useState("Login or Signup to get started!")
+    const [info_message, set_info_message] = React.useState("Login or sign up to get started!")
     React.useEffect(() => {
         set_user(localStorage.getItem('currentUser'))
     }, [])
@@ -40,6 +40,7 @@ export default function App() {
           method: 'delete',
         }).finally(() => {
           set_user(null)
+          set_info_message("Login or sign up to get started!")
         });
     }
 
@@ -56,7 +57,7 @@ export default function App() {
                         <Route path='/' element={<Login user = {user} set_info_message = {set_info_message}/>} exact />
                         <Route path='/hangman' element={<Hangman user = {user} set_info_message = {set_info_message} />} />
                         <Route path='/scores' element={<Scores user = {user} set_info_message = {set_info_message} />} />
-                        <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user} set_info_message = {set_info_message}/>} />
+                        <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user} set_info_message = {set_info_message} info_message={info_message}/>} />
                         <Route path='/input_word' element={<Input_Word user = {user} set_info_message = {set_info_message} />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>
