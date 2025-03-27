@@ -8,6 +8,8 @@ alert/notif system
 stickman for you and friend?
 mute button
 prevent 3 or more users from joining
+leave room button
+better mobile support
 */
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
