@@ -49,7 +49,8 @@ export default function App() {
                 <div className="app-body">
                     <header>
                         {user != null && (<div>User: {user}</div>)}
-                        {user != null && (<button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button>)}
+                        <div className='info'>Login or Signup to get started!</div>
+                        {user != null && (<div><button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button></div>)}
                     </header>
                     <Routes>
                         <Route path='/' element={<Login user = {user} />} exact />

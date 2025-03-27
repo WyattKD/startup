@@ -2,19 +2,8 @@
     font-family: "VT323", Arial, Helvetica, sans-serif;
     color: black;
 }
-.app-body {
-    background-image: url("/graph-background.jpg");
-    background-size: cover;
-    background-color: rgba(255,255,255,0.85);
-    background-blend-mode: lighten;
-    padding-bottom: 200px;
-    width: 100%;
-    position: absolute;
-}
-.app {
-    background-color: #fdf0d5;
-    padding-bottom: 90px;
-}
+
+
 
 header, footer {
     z-index: 1;
@@ -29,14 +18,19 @@ header {
     font-size: 1.3em;
 }
 header > * {
-    margin-top: 10px;
-    flex: 1 0 10%;
+    margin-top: 10%;
+    flex: 1 0;
     margin-left: 4%;
     min-width: 105px;
+}
+.info {
+    flex: 3 0;
 }
 header div {
     font-size: 1.5em;
     margin-top: 1px;
+    text-align: center;
+    vertical-align: auto;
 }
 menu {
   display: flex;
@@ -72,10 +66,11 @@ footer > * {
     background-color: #FF955A;
     margin-right: 4%;
     text-align: right;
-    font-size: 1.5em;
-    margin-top: 3px;
-    max-width: 130px;
+    font-size: 1.1em;
+    margin-top: -2px;
+    min-width: 130px;
     text-align: center;
+    min-height: 40px;
     max-height: 87%;
     line-height:0px;
     border-width: 0px;
@@ -89,5 +84,8 @@ footer > * {
 @media screen and (max-width: 800px) {
     footer {
         display: none;
+    }
+    .info {
+        display:none;
     }
 }
