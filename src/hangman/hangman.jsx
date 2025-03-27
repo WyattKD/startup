@@ -99,6 +99,9 @@ export function Hangman({user}) {
       if (data.type === 'to_scores') {
         navigate('/scores')
       }
+      if (data.type === 'player_left') {
+        navigate('/room_settings')
+      }
     }
     ws.onclose = () => {
       navigate('/')

@@ -43,6 +43,9 @@ export function Input_Word({user}) {
           localStorage.setItem("the_word", data.message)
           navigate('/hangman')
         }
+        if (data.type === 'player_left') {
+          navigate('/room_settings')
+        }
       }
       ws.onclose = () => {
         navigate('/')

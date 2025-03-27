@@ -29,8 +29,17 @@ export function Login({user}) {
     } catch (error) {
       set_error_message("Error: Connection failed, try refreshing the page.")
     }
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'join_succeeded') {
+        navigate('/room_settings')
+      } else if (data.type === 'join_failed') {
+        set_error_message("Room is full!")
+      }
+    };
     }
-  }, [user])
+    
+  }, [user, ws])
   async function check_auth() {
     const response = await fetch('/api/auth/verify')
     if (response?.status === 401) {
@@ -61,7 +70,6 @@ export function Login({user}) {
     if (logged_in && login_form.roomNumber != "") {
       localStorage.setItem("currentRoomNumber", login_form.roomNumber)
       join_room(login_form.roomNumber, localStorage.getItem("currentUser"))
-      navigate('/room_settings')
     } else if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
       set_error_message("Error: Please fill out all fields!")
     } else {
@@ -76,7 +84,6 @@ export function Login({user}) {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
         join_room(login_form.roomNumber, login_form.username)
-        navigate('/room_settings')
       } else if (response?.status === 401) {
         set_error_message("Error: Incorrect password or unrecognized user.")
       } else {
@@ -100,7 +107,6 @@ export function Login({user}) {
         localStorage.setItem("currentUser", login_form.username)
         localStorage.setItem("currentRoomNumber", login_form.roomNumber)
         join_room(login_form.roomNumber, login_form.username)
-        navigate('/room_settings')
       } else if(response?.status === 409) {
         set_error_message("Error: User already exists.")
       } else {
@@ -118,7 +124,8 @@ export function Login({user}) {
         word_giver: "",
     });
     ws.send(join_info);
-  } 
+  }
+
   function handle_button_click(type) {
     if (type == "login") {
       button_click()

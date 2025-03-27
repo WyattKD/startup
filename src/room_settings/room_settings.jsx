@@ -60,6 +60,12 @@ export function Room_Settings({user, set_user}) {
           localStorage.setItem("word_giver", data.message.word_giver)
           navigate('/input_word')
         }
+        if (data.type === 'player_left') {
+          ws.send(JSON.stringify({
+            type: 'get_players',  
+            room: localStorage.getItem('currentRoomNumber'),
+          }));
+        }
       };
       ws.onclose = () => {
         navigate('/')

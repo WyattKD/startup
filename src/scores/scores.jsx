@@ -49,6 +49,9 @@ export function Scores({user}) {
       if (data.type === 'playing_again') {
         navigate('/room_settings')
       }
+      if (data.type === 'player_left') {
+        navigate('/room_settings')
+      }
     };
     ws.onclose = () => {
       navigate('/')
