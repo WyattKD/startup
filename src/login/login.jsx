@@ -4,7 +4,7 @@ import './login.css';
 import {useSound} from 'use-sound'
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Login({user}) {
+export function Login({user, set_info_message}) {
   const [login_form, set_login_form] = React.useState({username:'', password:'', roomNumber:''})
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
@@ -12,6 +12,7 @@ export function Login({user}) {
   const [logged_in, set_logged_in] = React.useState(false)
   const ws = useWebSocket();
   React.useEffect(() => {
+
     localStorage.setItem("guesser", "")
     localStorage.setItem("word_giver", "")
     localStorage.setItem("the_word", "")
@@ -66,6 +67,11 @@ export function Login({user}) {
     }
 
   }, [ws, user]);
+  React.useEffect(() => {
+    if (logged_in) {
+      set_info_message("Join a room to get started!")
+    }
+  }, [logged_in]);
   async function login() {
     if (logged_in && login_form.roomNumber != "") {
       localStorage.setItem("currentRoomNumber", login_form.roomNumber)

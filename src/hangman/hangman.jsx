@@ -5,7 +5,7 @@ import { useSound } from 'use-sound';
 import { useWebSocket } from '../WebSocketContext.jsx';
 
 
-export function Hangman({user}) {
+export function Hangman({user, set_info_message}) {
   const [game_data, set_game_data] = React.useState({incorrect_guesses:[], correct_guesses:[], the_hidden_word:'', score_1:0, score_2:0})
   const the_word = localStorage.getItem("the_word").toLocaleLowerCase()
   const [win, set_win] = React.useState(false)

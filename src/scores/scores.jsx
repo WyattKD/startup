@@ -4,7 +4,7 @@ import './scores.css';
 import {useSound} from 'use-sound'
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Scores({user}) {
+export function Scores({user, set_info_message}) {
   const [scores, set_scores] = React.useState([]);
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
 

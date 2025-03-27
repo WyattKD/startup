@@ -28,7 +28,7 @@ export default function App() {
 
     const [user, set_user] = React.useState(localStorage.getItem('currentUser'))
     const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
-
+    const [info_message, set_info_message] = React.useState("Login or Signup to get started!")
     React.useEffect(() => {
         set_user(localStorage.getItem('currentUser'))
     }, [])
@@ -49,15 +49,15 @@ export default function App() {
                 <div className="app-body">
                     <header>
                         {user != null && (<div>User: {user}</div>)}
-                        <div className='info'>Login or Signup to get started!</div>
+                        <div className='info'>{info_message}</div>
                         {user != null && (<div><button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button></div>)}
                     </header>
                     <Routes>
-                        <Route path='/' element={<Login user = {user} />} exact />
-                        <Route path='/hangman' element={<Hangman user = {user} />} />
-                        <Route path='/scores' element={<Scores user = {user} />} />
-                        <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user}/>} />
-                        <Route path='/input_word' element={<Input_Word user = {user} />} />
+                        <Route path='/' element={<Login user = {user} set_info_message = {set_info_message}/>} exact />
+                        <Route path='/hangman' element={<Hangman user = {user} set_info_message = {set_info_message} />} />
+                        <Route path='/scores' element={<Scores user = {user} set_info_message = {set_info_message} />} />
+                        <Route path='/room_settings' element={<Room_Settings user = {user} set_user = {set_user} set_info_message = {set_info_message}/>} />
+                        <Route path='/input_word' element={<Input_Word user = {user} set_info_message = {set_info_message} />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>
                     <footer>

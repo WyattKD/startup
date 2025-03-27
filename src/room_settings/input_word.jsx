@@ -4,7 +4,7 @@ import './input_word.css';
 import { useSound } from 'use-sound';
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Input_Word({user}) {
+export function Input_Word({user, set_info_message}) {
   const navigate = useNavigate();
   const [the_word, set_the_word] = React.useState('')
   const [valid_word, set_valid_word] = React.useState(true)

@@ -4,7 +4,7 @@ import './room_settings.css';
 import { useSound } from 'use-sound'
 import { useWebSocket } from '../WebSocketContext.jsx';
 
-export function Room_Settings({user, set_user}) {
+export function Room_Settings({user, set_user, set_info_message}) {
   const navigate = useNavigate();
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
   const ws = useWebSocket();
