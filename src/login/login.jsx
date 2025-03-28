@@ -8,6 +8,7 @@ export function Login({user, set_info_message}) {
   const [login_form, set_login_form] = React.useState({username:'', password:'', roomNumber:''})
   const [error_message, set_error_message] = React.useState("Enter the same room number as your friend!")
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+  const [invalid_sfx] = useSound('invalid.mp4', { volume: 3 });
   const navigate = useNavigate();
   const [logged_in, set_logged_in] = React.useState(false)
   const ws = useWebSocket();
@@ -89,6 +90,7 @@ export function Login({user, set_info_message}) {
       join_room(login_form.roomNumber, localStorage.getItem("currentUser"))
     } else if (login_form.username == "" || login_form.password == "" || login_form.roomNumber == "") {
       set_error_message("Error: Please fill out all fields!")
+      invalid_sfx()
     } else {
       const response = await fetch(`/api/auth/login`, {
         method: 'post',
@@ -103,8 +105,10 @@ export function Login({user, set_info_message}) {
         join_room(login_form.roomNumber, login_form.username)
       } else if (response?.status === 401) {
         set_error_message("Error: Incorrect password or unrecognized user.")
+        invalid_sfx()
       } else {
         set_error_message("Error: Login failed.")
+        invalid_sfx()
       }
     }
   }

@@ -10,6 +10,7 @@ export function Input_Word({user, set_info_message}) {
   const [valid_word, set_valid_word] = React.useState(true)
   const [input_text, set_input_text] = React.useState("")
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+  const [invalid_sfx] = useSound('invalid.mp4', { volume: 3 });
   const ws = useWebSocket();
 
   async function check_auth() {
@@ -86,6 +87,7 @@ export function Input_Word({user, set_info_message}) {
         }));
       }
     } else if (key == "Enter" || invalid_word) {
+      invalid_sfx()
       event.target.value = ""
       set_valid_word(false)
       set_input_text("")

@@ -11,6 +11,7 @@ export function Hangman({user, set_info_message}) {
   const [win, set_win] = React.useState(false)
   const [lose, set_lose] = React.useState(false)
   const [button_click] = useSound('buttonclick.mp4', { volume: 3 });
+  const [invalid_sfx] = useSound('invalid.mp4', { volume: 3 });
   const [sfx_to_play, set_sfx_to_play] = React.useState("c")
   
   const ws = useWebSocket();
@@ -175,14 +176,18 @@ export function Hangman({user, set_info_message}) {
       if (letter == null || letter == "" || letter == " ") {
         event.target.value = ""
         event.target.placeholder = "Enter your guess!"
+        invalid_sfx()
       } else if (game_data.incorrect_guesses.includes(letter + ", ") || game_data.correct_guesses.includes(letter)) {
         event.target.value = ""
         event.target.placeholder = "You've already guessed that letter!"
+        invalid_sfx()
       } else {
         send_letter(letter)
         event.target.value = ""
         event.target.placeholder = "Enter your guess!"
       }
+    } else if (event.key == "Enter") {
+      invalid_sfx()
     }
   }
 
