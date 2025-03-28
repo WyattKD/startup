@@ -26,13 +26,17 @@ export function Room_Settings({user, set_user, set_info_message, info_message}) 
     }
   }
   React.useEffect(() => {
+    window.onpopstate = () => {
+      console.log("happened fo sho")
+      navigate('/')
+    }
+  })
+  React.useEffect(() => {
     localStorage.setItem("guesser", "")
     localStorage.setItem("word_giver", "")
     localStorage.setItem("the_word", "")
     localStorage.setItem("real_words?", "false")
-    check_auth().then((verified) => {if(!verified){navigate('/')}
-    
-    })
+    check_auth().then((verified) => {if(!verified){navigate('/')}})
     if (ws) {
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({

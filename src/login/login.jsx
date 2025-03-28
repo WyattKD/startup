@@ -160,13 +160,13 @@ export function Login({user, set_info_message}) {
       <h2 className="login-h2">with a friend!</h2>
         <div className="mb-3">
           <label className="login-label">Username: </label>
-          <input disabled={logged_in ? true : false} autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder={logged_in ? "You are logged in!" : "Enter your username"} ></input>
+          <input maxLength="20" disabled={logged_in ? true : false} autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, username: e.target.value})}} type="username" className="login-input form-control" id="exampleFormControlInput1" placeholder={logged_in ? "You are logged in!" : "Enter your username"} ></input>
         </div>
           <label className="login-label">Password: </label>
           <input disabled={logged_in ? true : false} autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, password: e.target.value})}} type="password" id="inputPassword5" className="login-input form-control" placeholder={logged_in ? "You are logged in!" : "Enter your password"}></input>
         <div className="mb-3">
           <label className="login-label">Room Number: </label>
-          <input autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
+          <input maxLength="10" autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
         </div>
         <div className="form-text" id="basic-addon4">{error_message}</div>
         <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">{logged_in ? "Go!" : "Login"}</button>

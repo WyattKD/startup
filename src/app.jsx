@@ -49,7 +49,7 @@ export default function App() {
             <BrowserRouter>
                 <div className="app-body">
                     <header>
-                        {user != null && (<div>User: {user}</div>)}
+                        {user != null && (<div className='user'>User: {user}</div>)}
                         <div className='info'>{info_message}</div>
                         {user != null && (<div><button onClick={() => log_out()} type="submit" className="btn btn-danger app-button">Log Out</button></div>)}
                     </header>

@@ -17,11 +17,11 @@ header {
 header > * {
     margin-top: 10%;
     flex: 1 0;
-    margin-left: 4%;
     min-width: 105px;
 }
 .info {
-    flex: 3 0;
+    flex: 2.5 0;
+    margin-left: 0px;
 }
 header div {
     font-size: 1.5em;
