@@ -38,6 +38,25 @@ async function add_score(score) {
   return scoreCollection.insertOne(score);
 }
 
+async function add_score(newScore) {
+  const user = await scoreCollection.findOne({name: newScore.name}) // Check if the user exists
+  if (user) {
+    // User exists, check if the new score is higher
+    const existingScore = await scoreCollection.findOne({ name: newScore.name });
+    if (existingScore && existingScore.score >= newScore.score) {
+      return { success: false, message: 'New score is not higher than the existing score' };
+    }
+    await scoreCollection.updateOne(
+      { name: newScore.name },
+      { $set: { score: newScore.score } }
+    );
+    return { success: true, message: 'Score updated successfully' };
+  } else {
+    // User does not exist
+    return scoreCollection.insertOne(newScore);
+  }
+}
+
 function get_high_scores() {
   const query = { score: { $gt: 0 } };
   const options = {
