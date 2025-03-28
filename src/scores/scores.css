@@ -1,6 +1,10 @@
 .scores {
     margin-left: 0%;
-
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 td {
     font-family: Arial, Helvetica, sans-serif;
@@ -12,7 +16,7 @@ th {
     background-color: #FF955A !important;
 }
 .scores-h1 {
-    margin-top: 70px;
+    margin-top: 0px;
     text-align: center;
     font-family: "Honk", Arial, Helvetica, sans-serif;
 }

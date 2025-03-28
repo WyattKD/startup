@@ -1,12 +1,10 @@
 /*
 STUFF TO ADD:
 revamp score system
-invalid input sfx
 comment and organize code
 stickman for you and friend?
 mute button
 leave room button
-better mobile support
 */
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';

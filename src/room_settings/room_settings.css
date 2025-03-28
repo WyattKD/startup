@@ -62,3 +62,13 @@ main {
 .form-check-input {
     margin-top: 10px;
 }
+@media screen and (max-width: 800px) {
+    .settings-button {
+        max-height: 50px;
+        width: 100px;
+        margin: auto;
+    }
+    .form-check {
+        margin-left: 10px;
+    }
+}

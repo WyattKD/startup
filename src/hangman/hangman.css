@@ -38,7 +38,8 @@ ul {
     list-style: none;
 }
 div.col {
-    min-width: 350px !important;
+    min-width: 100px !important;
+    width: 300px !important;
     margin-top: 40px;
 }
 label.word-label, label.guess-label {
@@ -57,6 +58,7 @@ label.word-label {
     color: #c1121f;
     font-size: 2.5em;
     margin-top: -15px;
+    max-width: 30%;
 }
 .players-label {
     color: #669bbc;
@@ -77,8 +79,48 @@ label.word-label {
 }
 .win-gif {
     position: absolute;
-    width: 400px;
-    top: 25%;
-    left: 40%;
+    width: 200px;
+    top: 27%;
+    left: 46%;
     z-index: 6;
+}
+@media screen and (max-width: 800px) {
+    .players-label, .incorrect-guess-label, .hm-li {
+        display: none;
+    }
+    .hm-img {
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+    }
+    label.guess-label {
+        transform: translate(-140px, 0px);
+        font-size: 2em
+    }
+    .hm-button {
+        width: 100px;
+        height: 50px;
+
+        margin-right: 0px;
+        font-size: 1.0em;
+    }
+    .hangman-win, .hangman-lose {
+        position: absolute;
+        width: 37%;
+        left: 10%;
+        top: 9%;
+        min-width: 300px;
+        height: 565px;
+        z-index: 3;
+        margin-top: -10px;
+    }
+    .win-gif {
+        left: 38%;
+    }
+    label.word-label {
+        margin-top: 30%;
+    }
+    .hm-p {
+        display: none;
+    }
 }

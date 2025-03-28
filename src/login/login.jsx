@@ -173,10 +173,12 @@ export function Login({user, set_info_message}) {
           <input maxLength="10" autoComplete="off" onKeyDown={e => {if (e.key=="Enter" && error_message != "Error: Connection failed, try refreshing the page.") {login()}}} onChange={e => {set_login_form({...login_form, roomNumber: e.target.value})}} type="number" className="login-input form-control" id="exampleFormControlInput2" placeholder="Enter your room number"></input>
         </div>
         <div className="form-text" id="basic-addon4">{error_message}</div>
-        <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">{logged_in ? "Go!" : "Login"}</button>
-        {!logged_in && <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-secondary signup-button">Sign Up</button>}
-        <img alt="Hangman-dance" className="gif-right" src={"stickman-dance.gif"}></img>
-        <img alt="Hangman-dance" className="gif-left" src={"stickman-dance.gif"}></img>
+        <div className='login-buttons'>
+          <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("login")} type="login" className="btn btn-secondary login-button">{logged_in ? "Go!" : "Login"}</button>
+          {!logged_in && <button disabled={error_message == "Error: Connection failed, try refreshing the page." ? true : false} onClick={() => handle_button_click("sign_up")} type="signup" className="btn btn-secondary signup-button">Sign Up</button>}
+        </div>
+        <img alt="Hangman-dance" className="gif-right" src={"stickman-dance2.gif"}></img>
+        <img alt="Hangman-dance" className="gif-left" src={"stickman-dance2.gif"}></img>
     </div>
   );
 }
