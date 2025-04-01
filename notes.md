@@ -89,7 +89,30 @@ const query = { score: { $gt: 0 } };
 ```
 to sort scores.
 
+## WebSocket notes
 
+Wrap the application in a WebSocket context to ensure the connection persists between modules.\
+Managing WS connections as rooms:
+```
+if (type === 'join') {
+                if (!rooms[room]) {
+                    rooms[room] = [];
+                }
+                // Check if the player is already in the room
+                if (!(ws in rooms[room]) && rooms[room].length < 2) { 
+                    rooms[room].push(ws);
+                    ws.send(JSON.stringify({ type: 'join_succeeded', message: true }));
+                    console.log(`Player ${player} joined room ${room}`);
+                } else {
+                    ws.send(JSON.stringify({ type: 'join_failed', message: false }));
+                }
+            }
+```
+
+`ws.onopen` handles when the connection opens.\
+`ws.onclose` handles when the connection closes.\
+`ws.onmessage` handles receiving messages.\
+To sync player actions, change actions to WS messages and initiate actinons when a WS message is received.
 
 
 ## Basic GIT Commands
