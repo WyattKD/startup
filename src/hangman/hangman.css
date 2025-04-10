@@ -58,7 +58,7 @@ label.word-label {
     color: #c1121f;
     font-size: 2.5em;
     margin-top: -15px;
-    max-width: 30%;
+    width: 300px;
 }
 .players-label {
     color: #669bbc;

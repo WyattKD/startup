@@ -4,7 +4,6 @@ revamp score system
 comment and organize code
 stickman for you and friend?
 mute button
-leave room button
 */
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';

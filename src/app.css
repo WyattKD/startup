@@ -17,7 +17,6 @@ header {
     max-width: 100%;
 }
 header > * {
-    margin-top: 10%;
     flex: 1 0;
     min-width: 105px;
 }
@@ -27,9 +26,13 @@ header > * {
 }
 header div {
     font-size: 1.5em;
-    margin-top: 1px;
+    display: flex;
     text-align: center;
     vertical-align: auto;
+    position: relative;
+    line-height: inherit;
+    align-items: center;
+    justify-content: center;
 }
 menu {
   display: flex;
@@ -55,12 +58,16 @@ footer {
 footer a {
     margin-right: 4%;
     text-align: right;
+    justify-content: right;
 }
 footer > * {
-    margin-top: 10px;
     flex: 1 0 10%;
     margin-left: 4%;
     min-width: 105px;
+    display: flex;
+    position: relative;
+    line-height: inherit;
+    align-items: center;
 }
 .app-button {
     background-color: #FF955A;
